@@ -1,29 +1,46 @@
 package grupoxande.cst;
 
-//import javafx.application.Application;
+
 
 import CSTgame.CSTposicao;
-import CSTgame.ManipuladorDeArquivo;
 import CSTgame.exececaoCST;
 import CSTgame.partidaCST;
 import CSTgame.personagensCST.racoba;
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-//import javafx.fxml.FXMLLoader;
-//import javafx.scene.Parent;
-//import javafx.scene.Scene;
-//import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-//import java.io.IOException;
+import java.io.IOException;
+import javafx.application.Application;
 
 /**
  * JavaFX App
  */
-public class App {
+public class App extends Application{
+    private static Scene scene;
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        scene = new Scene(loadFXML("primary"), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+        launch(args);
+        /*Scanner scan = new Scanner(System.in);
         boolean pog = true;
         System.out.println("Seja Bem vindo ao Comp-Senai-Tactics");
         while(pog){
@@ -39,7 +56,7 @@ public class App {
                     break;
                 case 2:
                     try {
-                        ManipuladorDeArquivo.lerArquivo("Regras.txt");
+                        ManipuladorDeArquivo.lerArquivo("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\Regras.txt");
                         scan.nextLine();
                         scan.nextLine();
                         UI.limparTelaConsole();
@@ -60,7 +77,7 @@ public class App {
                 default:
                     break;
             }
-    }
+    }*/
       }
 
       public static void rodarPartida(Scanner scan){
