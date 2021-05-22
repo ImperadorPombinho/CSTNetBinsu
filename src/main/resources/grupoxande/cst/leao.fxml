@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="grupoxande.cst.LeaoController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="-3.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagem/prototipoleao.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="botaoVoltar" layoutX="130.0" layoutY="303.0" mnemonicParsing="false" onAction="#voltarTela" text="Voltar" />
+   </children>
+</AnchorPane>
