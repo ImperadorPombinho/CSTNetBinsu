@@ -1,0 +1,190 @@
+package grupoxande.cst;
+
+//import javafx.application.Application;
+
+import CSTgame.CSTposicao;
+import CSTgame.ManipuladorDeArquivo;
+import CSTgame.exececaoCST;
+import CSTgame.partidaCST;
+import CSTgame.personagensCST.racoba;
+import java.io.IOException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+//import javafx.fxml.FXMLLoader;
+//import javafx.scene.Parent;
+//import javafx.scene.Scene;
+//import javafx.stage.Stage;
+
+//import java.io.IOException;
+
+/**
+ * JavaFX App
+ */
+public class App {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        boolean pog = true;
+        System.out.println("Seja Bem vindo ao Comp-Senai-Tactics");
+        while(pog){
+        System.out.println("EScolha qual ação quer visualizar: ");
+        System.out.println("1 - Jogar");
+        System.out.println("2 - Ver Regras");
+        System.out.println("3 - Creditos");
+        System.out.println("4 - Sair do jogo");
+        int selec = scan.nextInt();
+            switch (selec) {
+                case 1:
+                    rodarPartida(scan);
+                    break;
+                case 2:
+                    try {
+                        ManipuladorDeArquivo.lerArquivo("Regras.txt");
+                        scan.nextLine();
+                        scan.nextLine();
+                        UI.limparTelaConsole();
+                    } catch (IOException e) {
+                    }       break;
+                case 3:
+                    try {
+                        ManipuladorDeArquivo.lerArquivo("creditos.txt");
+                        scan.nextLine();
+                        scan.nextLine();
+                        UI.limparTelaConsole();
+                    } catch (IOException e) {
+                    }       break;
+                case 4:
+                    System.out.println("Saindo...");
+                    pog = false;
+                    break;
+                default:
+                    break;
+            }
+    }
+      }
+
+      public static void rodarPartida(Scanner scan){
+        int selec, linhas, colunas, ID = 1;
+        String resp = "S";
+       
+        linhas = UI.escolhaDoFormato(scan);
+        switch (linhas) {
+            case 20:
+                ID = 1;
+                break;
+            case 10:
+                ID = 2;
+                break;
+            case 26:
+                ID = 3;
+                break;
+            default:
+                break;
+        }
+        colunas = linhas;
+        String[] nomes = UI.lerNomes(scan);
+        boolean[][] possiveisAlgumaCoisa;
+        
+        partidaCST partidaCST = new partidaCST(linhas, colunas, ID);
+        
+         while("S".equals(resp)){
+            
+            
+            UI.printarSorteioAtqPecas(partidaCST);
+            scan.nextLine();
+            scan.nextLine();
+            while(partidaCST.ispartida()){
+                try{
+                
+                selec = UI.printarPartida(partidaCST, nomes, linhas, scan);
+                if(partidaCST.ispartida() == false){
+                    partidaCST.escreverNoArquivo(partidaCST);
+                    break;
+                }
+                    switch (selec) {
+                        case 1:
+                            scan.nextLine();
+                            System.out.println();
+                            System.out.println("Ataque");
+                            System.out.print("posicao origem: ");
+                            CSTposicao posicaoAtacante = UI.lerPosicao(scan, linhas);
+                            possiveisAlgumaCoisa = partidaCST.possiveisAtaques(posicaoAtacante);
+                            UI.limparTelaConsole();
+                            UI.printarTabuleiro(partidaCST.getPecas(), linhas, possiveisAlgumaCoisa);
+                            System.out.println();
+                            System.out.print("posicao destino: ");
+                            CSTposicao posicaoAtacado = UI.lerPosicao(scan, linhas);
+                            partidaCST.perfomaceAtaque(posicaoAtacante, posicaoAtacado);
+                            break;
+                    //alou;
+                    //alou
+                        case 2:
+                            {
+                                scan.nextLine();
+                                System.out.println();
+                                System.out.println("Movimento");
+                                System.out.print("posicao origem: ");
+                                CSTposicao origem = UI.lerPosicao(scan, linhas);
+                                possiveisAlgumaCoisa = partidaCST.possiveisMovimentos(origem);
+                                UI.limparTelaConsole();
+                                UI.printarTabuleiro(partidaCST.getPecas(), linhas, possiveisAlgumaCoisa);
+                                System.out.println();
+                                System.out.print("posicao destino: ");
+                                CSTposicao destino = UI.lerPosicao(scan, linhas);
+                                partidaCST.perfomaceFazerMovimento(origem, destino);
+                                break;
+                            }
+                        case 3:
+                            {
+                                scan.nextLine();
+                                System.out.println();
+                                System.out.println("Habilidade");
+                                System.out.print("posicao origem: ");
+                                CSTposicao origem = UI.lerPosicao(scan, linhas);
+                                System.out.println();
+                                if(partidaCST.getJogador().getPecaAtual() instanceof racoba){
+                                    System.out.println();
+                                    partidaCST.perfomaceHabilidade(origem, origem);
+                                }
+                                else{
+                                    System.out.print("posicao destino: ");
+                                    CSTposicao destino = UI.lerPosicao(scan, linhas);
+                                    partidaCST.perfomaceHabilidade(origem, destino);
+                                }           break;
+                            }
+                        case 4:
+                            if(partidaCST.getJogador().getPecaAtual() instanceof racoba){
+                                System.out.println("Nada de itens! só equipamentos gacha!!!!");
+                            }
+                            else{
+                                scan.nextLine();
+                                UI.menuItem(scan, partidaCST);
+                                System.out.println();
+                            }       break;
+                        default:
+                            break;
+                    }
+                }
+                catch(exececaoCST | InputMismatchException e){
+                    System.out.println(e.getMessage());
+                    scan.nextLine();
+                    scan.nextLine();
+                }
+            }
+            System.out.println("Quer jogar de novo[S/N}");
+            resp = scan.nextLine();
+            if("N".equals(resp.intern())){
+                break;
+            }else{
+                resp = "S";
+                partidaCST.resetarPartida(linhas, colunas, ID);
+            }
+        }
+      }
+           
+
+        
+
+    
+    
+}
