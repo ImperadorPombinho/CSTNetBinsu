@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -18,8 +20,10 @@ import javafx.scene.control.Button;
  * @author Pedrão Barros
  */
 public class TelaInicialController implements Initializable {
-
-   
+      @FXML
+    private AnchorPane anchorpane;
+    @FXML
+    private ImageView imagem;
     @FXML
     private Button botaoJogar;
 
@@ -46,7 +50,7 @@ public class TelaInicialController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
     
 }

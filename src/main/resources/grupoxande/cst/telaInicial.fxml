@@ -5,15 +5,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupoxande.cst.TelaInicialController">
+<AnchorPane id="AnchorPane" fx:id="anchorpane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupoxande.cst.TelaInicialController">
    <children>
-      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagem" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@imagem/menu.png" />
          </image>
       </ImageView>
-      <Button fx:id="botaoJogar" layoutX="486.0" layoutY="399.0" mnemonicParsing="false" onAction="#trocarTelaJogar" opacity="0.0" prefHeight="65.0" prefWidth="295.0" />
-      <Button fx:id="botaoRegras" layoutX="472.0" layoutY="514.0" mnemonicParsing="false" onAction="#trocarTelaRegras" opacity="0.0" prefHeight="65.0" prefWidth="328.0" />
-      <Button fx:id="botaoSair" layoutX="531.0" layoutY="629.0" mnemonicParsing="false" onAction="#sairDoJogo" opacity="0.0" prefHeight="58.0" prefWidth="193.0" />
+      <Button fx:id="botaoJogar" layoutX="470.0" layoutY="387.0" mnemonicParsing="false" onAction="#trocarTelaJogar" opacity="0.0" prefHeight="88.0" prefWidth="308.0" AnchorPane.bottomAnchor="245.0" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="502.0" AnchorPane.topAnchor="387.0" />
+      <Button fx:id="botaoRegras" layoutX="456.0" layoutY="517.0" mnemonicParsing="false" onAction="#trocarTelaRegras" opacity="0.0" prefHeight="78.0" prefWidth="348.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="456.0" AnchorPane.rightAnchor="476.0" AnchorPane.topAnchor="517.0" />
+      <Button fx:id="botaoSair" layoutX="528.0" layoutY="613.0" mnemonicParsing="false" onAction="#sairDoJogo" opacity="0.0" prefHeight="84.0" prefWidth="214.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="528.0" AnchorPane.rightAnchor="538.0" AnchorPane.topAnchor="613.0" />
    </children>
 </AnchorPane>
