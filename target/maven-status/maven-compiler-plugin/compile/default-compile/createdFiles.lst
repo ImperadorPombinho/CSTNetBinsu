@@ -21,9 +21,11 @@ CSTgame\interfacesItems\consumivelIF.class
 CSTgame\CSTpeca.class
 CSTgame\CSTposicao.class
 tabuleiroGame\posicao.class
+grupoxande\cst\HenridogController.class
 tabuleiroGame\peca.class
 CSTgame\personagensCST\miguez.class
 CSTgame\itemEquipavel.class
+grupoxande\cst\RacobaController.class
 CSTgame\time.class
 CSTgame\interfacesItems\equipavelIF.class
 grupoxande\cst\App.class
