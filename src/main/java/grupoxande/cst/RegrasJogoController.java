@@ -50,6 +50,12 @@ public class RegrasJogoController implements Initializable {
         if("Henridog".equals(perescolhido.getNome().intern())){
             App.setRoot("henridog");
         }
+        if("Juao".equals(perescolhido.getNome().intern())){
+            App.setRoot("juao");
+        }
+        if("Miguez".equals(perescolhido.getNome().intern())){
+            App.setRoot("miguez");
+        }
     }
 
     @FXML
