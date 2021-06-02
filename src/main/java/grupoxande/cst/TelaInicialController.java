@@ -39,9 +39,8 @@ public class TelaInicialController implements Initializable {
     }
 
     @FXML
-    void trocarTelaJogar() {
-        //nada por enquanto
-        
+    void trocarTelaJogar() throws IOException {
+       App.setRoot("jogarInicial");
     }
 
     @FXML

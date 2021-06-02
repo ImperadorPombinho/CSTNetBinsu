@@ -1,3 +1,4 @@
+grupoxande\cst\JogarController.class
 CSTgame\jogador.class
 CSTgame\ManipuladorDeArquivo.class
 grupoxande\cst\LeaoController.class
@@ -34,3 +35,4 @@ CSTgame\interfacesItems\equipavelIF.class
 grupoxande\cst\App.class
 grupoxande\cst\UI.class
 CSTgame\personagensCST\racoba.class
+grupoxande\cst\JogarInicialController.class
