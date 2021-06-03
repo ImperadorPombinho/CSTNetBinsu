@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 
 <AnchorPane id="AnchorPane" fx:id="telaJogar" prefHeight="400.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupoxande.cst.JogarController">
    <children>
@@ -12,5 +12,6 @@
             <Image url="@imagem/menuhab.png" />
          </image>
       </ImageView>
+      <Button fx:id="botaoMovimentar" layoutX="526.0" layoutY="399.0" mnemonicParsing="false" onAction="#fazerMovimentoo" opacity="0.0" prefHeight="25.0" prefWidth="84.0" />
    </children>
 </AnchorPane>

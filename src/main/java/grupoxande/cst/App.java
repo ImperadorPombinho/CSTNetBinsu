@@ -29,7 +29,8 @@ public class App extends Application{
     public static ImageView[][] imagens;
     public static int tamanhoTabul;
     public static int ID;
-
+    public static String posicao;
+    public static String posicaoFinal;
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("telaInicial"), 640, 480);
@@ -88,7 +89,7 @@ public class App extends Application{
     }*/
       }
 
-      public static void rodarPartida(Scanner scan){
+      /*public static void rodarPartida(Scanner scan){
         int selec, linhas, colunas, ID = 1;
         String resp = "S";
        
@@ -205,7 +206,7 @@ public class App extends Application{
                 partidaCST.resetarPartida(linhas, colunas, ID);
             }
         }
-      }
+      }*/
            
 
         

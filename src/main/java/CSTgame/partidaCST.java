@@ -11,13 +11,17 @@ import CSTgame.personagensCST.leao;
 import CSTgame.personagensCST.miguez;
 import CSTgame.personagensCST.obstaculo;
 import CSTgame.personagensCST.racoba;
+import static grupoxande.cst.App.imagens;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import javafx.scene.image.Image;
 import tabuleiroGame.peca;
 import tabuleiroGame.posicao;
 import tabuleiroGame.tabuleiro;
@@ -188,7 +192,7 @@ public class partidaCST implements Serializable{
         return tabuleiro.peca(posicao).possiveisAtaques();
     }
 
-    public void perfomaceFazerMovimento(CSTposicao posicaoOrigem, CSTposicao posicaoDestino){
+    public void perfomaceFazerMovimento(CSTposicao posicaoOrigem, CSTposicao posicaoDestino) throws FileNotFoundException{
         posicao origem = posicaoOrigem.toPosicao();
         CSTpeca miguezz = (CSTpeca) tabuleiro.peca(origem);
         if(miguezz instanceof miguez){
@@ -199,6 +203,8 @@ public class partidaCST implements Serializable{
         validacaoOrigem(origem);
         validacaoOrigemDestino(origem, destino);
         fazerMovimento(origem, destino);
+        imagens[origem.getLinha()][origem.getColuna()].setImage(null);
+        imagens[destino.getLinha()][destino.getColuna()].setImage(new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png")));
         proximoTurno();
     }
     public void perfomaceAtaque(CSTposicao posicaoAtacante, CSTposicao posicaoAtacado){
@@ -780,7 +786,7 @@ public class partidaCST implements Serializable{
         }else if(getIDmapa() == 2){
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'G');
-            colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT"), 8, 'B');
+            colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT", this), 8, 'B');
             colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'D');
         }else{
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'A');

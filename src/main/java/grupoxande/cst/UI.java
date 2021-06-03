@@ -126,7 +126,7 @@ public class UI {
             throw new exececaoCST("lista de itens vazia");
         }
     }
-    public static void menuItem(Scanner scan, partidaCST partidaCST){
+    public static void menuItem(Scanner scan, partidaCST partidaCST, String posicao){
         int resp, ID = 0;
         System.out.println("Item");
         System.out.println("Qual tipo?");
@@ -148,7 +148,7 @@ public class UI {
             scan.nextLine();
             System.out.print("posicao destino: ");
             
-            CSTposicao destino = UI.lerPosicao(scan, 20);
+            CSTposicao destino = UI.traduzirPosicao(20, posicao);
              partidaCST.perfomaceUsarItem(destino, ID);
             
         }else if(resp == 2){
@@ -165,16 +165,16 @@ public class UI {
             scan.nextLine();
             System.out.print("posicao destino: ");
             
-            CSTposicao destino = UI.lerPosicao(scan, 20);
+            CSTposicao destino = UI.traduzirPosicao(20, posicao);
              partidaCST.perfomaceEquiparItem(destino, ID);
         }
         
 
     }
-    public static CSTposicao lerPosicao(Scanner scan, int linhaMax){
+    public static CSTposicao traduzirPosicao(int linhaMax, String posicao){
         try{
            
-        String string = scan.nextLine();
+        String string = posicao;
         char coluna = string.charAt(0);
         int linha;
         if(string.length() == 3){

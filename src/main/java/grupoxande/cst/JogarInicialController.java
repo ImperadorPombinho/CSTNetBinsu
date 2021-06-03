@@ -49,9 +49,9 @@ public class JogarInicialController implements Initializable {
        tabuleiro = new Rectangle[tamanhoTabul][tamanhoTabul];
        imagens = new ImageView[tamanhoTabul][tamanhoTabul];
        if(tamanhoTabul == 10){
-           ID = 1;
-       }else if(tamanhoTabul == 20){
            ID = 2;
+       }else if(tamanhoTabul == 20){
+           ID = 1;
        }else{
            ID = 3;
        }

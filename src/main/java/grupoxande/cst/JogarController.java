@@ -5,13 +5,19 @@
  */
 package grupoxande.cst;
 
+import CSTgame.CSTposicao;
+import CSTgame.partidaCST;
 import static grupoxande.cst.App.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -68,6 +74,30 @@ void inicialiarTabulImagens(){
         }
     }
 }
+    @FXML
+    private Button botaoMovimentar;
+
+    @FXML
+    void fazerMovimentoo(ActionEvent event) throws FileNotFoundException {
+    partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
+    TextInputDialog pegarposicao = new TextInputDialog();
+    pegarposicao.setTitle("posição");
+    pegarposicao.setHeaderText("Me de a posição incial do personagem a ser movido");
+    pegarposicao.setContentText("Valor: ");
+    pegarposicao.showAndWait();
+    posicao = pegarposicao.getResult();
+    pegarposicao = new TextInputDialog();
+    pegarposicao.setTitle("posição");
+    pegarposicao.setHeaderText("Me de a posição final do personagem a ser movido");
+    pegarposicao.setContentText("Valor: ");
+    pegarposicao.showAndWait();
+    posicaoFinal = pegarposicao.getResult();
+    CSTposicao mover = UI.traduzirPosicao(10, posicao);
+    CSTposicao movido = UI.traduzirPosicao(10, posicaoFinal);
+    partidaCST.perfomaceFazerMovimento(mover, movido);
+    
+//posicao = JOptionPane.showInputDialog("Qual posição esta a peça a ser movida");
+    }
 /*void partidaIniciada(){
     String resp = "S";
     while("S".equals(resp.intern())){
