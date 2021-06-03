@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -46,7 +47,7 @@ public class JogarInicialController implements Initializable {
        nomes[1] = nome2.getText();
        tamanhoTabul = tamanhoBox.getSelectionModel().getSelectedItem();
        tabuleiro = new Rectangle[tamanhoTabul][tamanhoTabul];
-       
+       imagens = new ImageView[tamanhoTabul][tamanhoTabul];
        App.setRoot("jogar");
     } 
     @Override

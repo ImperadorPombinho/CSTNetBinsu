@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -25,6 +26,7 @@ public class App extends Application{
     private static Scene scene;
     public static String[] nomes = new String[2];
     public static Rectangle[][] tabuleiro;
+    public static ImageView[][] imagens;
     public static int tamanhoTabul;
 
     @Override
