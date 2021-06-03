@@ -2,19 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="grupoxande.cst.JogarInicialController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grupoxande.cst.JogarInicialController">
    <children>
-      <TextField fx:id="nome1" layoutX="179.0" layoutY="57.0" />
-      <TextField fx:id="nome2" layoutX="169.0" layoutY="154.0" />
-      <Label layoutX="179.0" layoutY="14.0" prefHeight="18.0" prefWidth="242.0" text="Nome1:" />
-      <Label layoutX="180.0" layoutY="116.0" prefHeight="18.0" prefWidth="89.0" text="Nome2:" />
-      <Button fx:id="botaoIR" layoutX="445.0" layoutY="320.0" mnemonicParsing="false" onAction="#irJogar" prefHeight="30.0" prefWidth="97.0" text="Ir jogar" />
-      <Label layoutX="88.0" layoutY="221.0" prefHeight="18.0" prefWidth="150.0" text="Tamanho" />
-      <ComboBox fx:id="tamanhoBox" layoutX="75.0" layoutY="270.0" prefWidth="150.0" />
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagem/jogadortela.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="nome1" layoutX="338.0" layoutY="57.0" prefHeight="26.0" prefWidth="402.0" />
+      <TextField fx:id="nome2" layoutX="350.0" layoutY="320.0" prefHeight="26.0" prefWidth="402.0" />
+      <Button fx:id="botaoIR" layoutX="1007.0" layoutY="630.0" mnemonicParsing="false" onAction="#irJogar" opacity="0.0" prefHeight="75.0" prefWidth="236.0" />
+      <ComboBox fx:id="tamanhoBox" layoutX="331.0" layoutY="549.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

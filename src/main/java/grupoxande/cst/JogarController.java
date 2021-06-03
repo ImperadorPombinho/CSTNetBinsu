@@ -23,7 +23,7 @@ import javafx.scene.shape.Rectangle;
  * @author Pedrão Barros
  */
 public class JogarController implements Initializable {
-
+    //partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
        @FXML
     private AnchorPane telaJogar;
     @Override
@@ -67,6 +67,15 @@ void inicialiarTabulImagens(){
             telaJogar.getChildren().add(imagens[i][j]);
         }
     }
-}    
+}
+/*void partidaIniciada(){
+    String resp = "S";
+    while("S".equals(resp.intern())){
+       while(partidaCST.ispartida()){
+        
+    } 
+    }
+    
+}*/
     
 }

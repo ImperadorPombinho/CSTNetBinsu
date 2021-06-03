@@ -28,6 +28,7 @@ public class App extends Application{
     public static Rectangle[][] tabuleiro;
     public static ImageView[][] imagens;
     public static int tamanhoTabul;
+    public static int ID;
 
     @Override
     public void start(Stage stage) throws IOException {

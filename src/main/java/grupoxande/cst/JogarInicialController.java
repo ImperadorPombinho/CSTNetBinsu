@@ -48,6 +48,13 @@ public class JogarInicialController implements Initializable {
        tamanhoTabul = tamanhoBox.getSelectionModel().getSelectedItem();
        tabuleiro = new Rectangle[tamanhoTabul][tamanhoTabul];
        imagens = new ImageView[tamanhoTabul][tamanhoTabul];
+       if(tamanhoTabul == 10){
+           ID = 1;
+       }else if(tamanhoTabul == 20){
+           ID = 2;
+       }else{
+           ID = 3;
+       }
        App.setRoot("jogar");
     } 
     @Override
