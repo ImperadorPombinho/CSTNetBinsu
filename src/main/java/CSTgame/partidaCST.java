@@ -158,7 +158,11 @@ public class partidaCST implements Serializable{
         this.IDmapa = ID;
         setTurno(1);
         jogador.setTimeAtual(time.ORACULO);
-        setupInicial();
+        try {
+            setupInicial();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
         Collections.shuffle(pecasOraculo);
         Collections.shuffle(pecasTropa);
         setIndOraculo(0);
@@ -406,7 +410,11 @@ public class partidaCST implements Serializable{
         this.IDmapa = ID;
         setTurno(1);
         jogador.setTimeAtual(time.ORACULO);
-        setupInicial();
+        try {
+            setupInicial();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
         Collections.shuffle(pecasOraculo);
         Collections.shuffle(pecasTropa);
         setIndOraculo(0);
@@ -732,14 +740,17 @@ public class partidaCST implements Serializable{
 
     }
     
-    private void colocarNovaPeca(peca peca, int linha, char coluna){
-        tabuleiro.colocarPeca(peca, new CSTposicao(coluna, linha, linhaMax).toPosicao());
+    private void colocarNovaPeca(peca peca, int linha, char coluna) throws FileNotFoundException{
+        posicao posicaoinicial = new CSTposicao(coluna, linha, linhaMax).toPosicao();
+        tabuleiro.colocarPeca(peca, posicaoinicial);
+        //imagens[posicaoinicial.getLinha()][posicaoinicial.getColuna()].setImage(new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png")));
         if(!(peca instanceof obstaculo) && ((CSTpeca)peca).getTiminho() == time.ORACULO){
             pecasOraculo.add((CSTpeca)peca);
         }
         if(!(peca instanceof obstaculo) && ((CSTpeca)peca).getTiminho() == time.TROPA){
             pecasTropa.add((CSTpeca)peca);
         }
+        //imagens[posicaoinicial.getLinha()][posicaoinicial.getColuna()].setImage(new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png")));
     }
 
     public void proximoTurno(){
@@ -773,7 +784,7 @@ public class partidaCST implements Serializable{
 
     }
 
-    private void setupInicial(){
+    private void setupInicial() throws FileNotFoundException{
         
         if(getIDmapa() == 1){
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');

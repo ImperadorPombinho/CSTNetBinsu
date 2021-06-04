@@ -8,8 +8,8 @@ package grupoxande.cst;
 import CSTgame.CSTposicao;
 import CSTgame.partidaCST;
 import static grupoxande.cst.App.*;
-
 import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import tabuleiroGame.posicao;
 
 /**
  * FXML Controller class
@@ -38,15 +39,8 @@ public class JogarController implements Initializable {
         
         inicializarTabuleiro();
         inicialiarTabulImagens();
-        Image img = null;
-           try {
-              
-            img = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png"));
-           } catch (FileNotFoundException ex) {
-               ex.printStackTrace();
-           }
-        imagens[0][0].setImage(img);
-        imagens[1][4].setImage(img);
+        setupInicial();
+
         
     }
 void inicialiarTabulImagens(){
@@ -134,5 +128,16 @@ void resetarTabuleiro(){
                 }
         }
     }
+}
+void inicializarImagens(char coluna, int linha){
+    posicao posicaoinicial = new CSTposicao(coluna, linha, tamanhoTabul).toPosicao();
+        try {
+            imagens[posicaoinicial.getLinha()][posicaoinicial.getColuna()].setImage(new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png")));
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+}
+void setupInicial(){
+    inicializarImagens('B', 8);
 }
 }
