@@ -30,24 +30,13 @@ import javafx.scene.shape.Rectangle;
  */
 public class JogarController implements Initializable {
     //partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
+    partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
        @FXML
     private AnchorPane telaJogar;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        for (int i = 0; i < tamanhoTabul; i++) {
-            for (int j = 0; j < tamanhoTabul; j++) {
-                tabuleiro[i][j] = new Rectangle(i*50, j*50, 50, 50);
-                
-                if((i%2==0 && j%2==0) || (i%2==1 && j%2==1)){
-                    tabuleiro[i][j].setStyle("-fx-fill : white;");
-                }else{
-                    tabuleiro[i][j].setStyle("-fx-fill : green;");
-                }
-                    
-                telaJogar.getChildren().add(tabuleiro[i][j]);
-                
-            }
-        }
+        
+        inicializarTabuleiro();
         inicialiarTabulImagens();
         Image img = null;
            try {
@@ -79,22 +68,25 @@ void inicialiarTabulImagens(){
 
     @FXML
     void fazerMovimentoo(ActionEvent event) throws FileNotFoundException {
-    partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
+    
     TextInputDialog pegarposicao = new TextInputDialog();
     pegarposicao.setTitle("posição");
     pegarposicao.setHeaderText("Me de a posição incial do personagem a ser movido");
     pegarposicao.setContentText("Valor: ");
     pegarposicao.showAndWait();
     posicao = pegarposicao.getResult();
+    CSTposicao mover = UI.traduzirPosicao(10, posicao);
+    printarTabuleiroPossiveisMovimento(mover);
     pegarposicao = new TextInputDialog();
     pegarposicao.setTitle("posição");
     pegarposicao.setHeaderText("Me de a posição final do personagem a ser movido");
     pegarposicao.setContentText("Valor: ");
     pegarposicao.showAndWait();
     posicaoFinal = pegarposicao.getResult();
-    CSTposicao mover = UI.traduzirPosicao(10, posicao);
+    
     CSTposicao movido = UI.traduzirPosicao(10, posicaoFinal);
     partidaCST.perfomaceFazerMovimento(mover, movido);
+    resetarTabuleiro();
     
 //posicao = JOptionPane.showInputDialog("Qual posição esta a peça a ser movida");
     }
@@ -107,5 +99,40 @@ void inicialiarTabulImagens(){
     }
     
 }*/
-    
+    void printarTabuleiroPossiveisMovimento(CSTposicao origem){
+        boolean[][] possiveisMovimentos = partidaCST.possiveisMovimentos(origem);
+        for (int i = 0; i < tamanhoTabul; i++) {
+            for (int j = 0; j < tamanhoTabul; j++) {
+                UI.printarTabuleiroPossiveisAlgumaCoisa(possiveisMovimentos[i][j], i, j);
+            }
+        }
+        
+    }
+void inicializarTabuleiro(){
+    for (int i = 0; i < tamanhoTabul; i++) {
+        for (int j = 0; j < tamanhoTabul; j++) {
+           tabuleiro[i][j] = new Rectangle(j*50, i*50, 50, 50);
+                
+            if((i%2==0 && j%2==0) || (i%2==1 && j%2==1)){
+                tabuleiro[i][j].setStyle("-fx-fill : white;");
+            }else{
+                tabuleiro[i][j].setStyle("-fx-fill : green;");
+                }
+                    
+            telaJogar.getChildren().add(tabuleiro[i][j]);
+                
+            }
+        }
+}
+void resetarTabuleiro(){
+    for (int i = 0; i < tamanhoTabul; i++) {
+        for (int j = 0; j < tamanhoTabul; j++) {
+             if((i%2==0 && j%2==0) || (i%2==1 && j%2==1)){
+                tabuleiro[i][j].setStyle("-fx-fill : white;");
+            }else{
+                tabuleiro[i][j].setStyle("-fx-fill : green;");
+                }
+        }
+    }
+}
 }

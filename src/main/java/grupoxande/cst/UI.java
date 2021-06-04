@@ -12,6 +12,8 @@ import CSTgame.itemConsumivel;
 import CSTgame.itemEquipavel;
 import CSTgame.partidaCST;
 import CSTgame.time;
+import static grupoxande.cst.App.imagens;
+import static grupoxande.cst.App.tabuleiro;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -278,6 +280,20 @@ public class UI {
                 
         }
         System.out.print(" ");
+    }
+    public static void printarTabuleiroPossiveisAlgumaCoisa(boolean teladefundo, int i, int j){
+        if(teladefundo == true){
+            tabuleiro[i][j].setStyle("-fx-fill : red;");
+        }else{
+         if(imagens[i][j] != null){
+              if((i%2==0 && j%2==0) || (i%2==1 && j%2==1)){
+                tabuleiro[i][j].setStyle("-fx-fill : white;");
+            }else{
+                tabuleiro[i][j].setStyle("-fx-fill : green;");
+                }
+           }
+        }
+       
     }
     private static String printarStatus(CSTpeca peca, int linhas){
         StringBuilder Status = new StringBuilder();

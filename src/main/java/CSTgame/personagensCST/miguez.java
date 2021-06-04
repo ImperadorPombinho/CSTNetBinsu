@@ -8,7 +8,10 @@ package CSTgame.personagensCST;
 import CSTgame.CSTpeca;
 import CSTgame.partidaCST;
 import CSTgame.time;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Random;
+import javafx.scene.image.Image;
 import tabuleiroGame.posicao;
 import tabuleiroGame.tabuleiro;
 
@@ -20,7 +23,12 @@ public class miguez extends CSTpeca {
     Random aleatorio = new Random();
     private int dormindo;
     private partidaCST partida;
+    private Image visual;
 
+    public Image getVisual() throws FileNotFoundException {
+        visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\migueznojogo.png"));
+        return visual;
+    }
     public miguez(tabuleiro tabul, time timinho, int ataque, int defesa, int vida, int rangeMovimento, partidaCST partida, String nome) {
         super(tabul, timinho, ataque, defesa, vida, rangeMovimento, nome);
         this.partida = partida;

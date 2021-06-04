@@ -7,8 +7,11 @@ package CSTgame.personagensCST;
 
 import CSTgame.CSTpeca;
 import CSTgame.time;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.image.Image;
 import tabuleiroGame.posicao;
 import tabuleiroGame.tabuleiro;
 
@@ -45,6 +48,12 @@ public class leao extends CSTpeca{
 
     private int contSurtez;
     private boolean habAtivado;
+    private Image visual;
+
+    public Image getVisual() throws FileNotFoundException {
+        visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png"));
+        return visual;
+    }
    public int getContSurtez() {
         return contSurtez;
     }
