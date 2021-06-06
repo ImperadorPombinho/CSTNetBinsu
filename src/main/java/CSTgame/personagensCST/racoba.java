@@ -9,7 +9,10 @@ import CSTgame.CSTpeca;
 import CSTgame.gacha;
 import CSTgame.partidaCST;
 import CSTgame.time;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Random;
+import javafx.scene.image.Image;
 import tabuleiroGame.posicao;
 import tabuleiroGame.tabuleiro;
 
@@ -18,9 +21,23 @@ import tabuleiroGame.tabuleiro;
  * @author Pedrão Barros
  */
 public class racoba extends CSTpeca {
+    private Image visual;
+    private time timinho;
 
+    public Image getVisual() throws FileNotFoundException {
+        if(timinho == time.ORACULO){
+             visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\racobaOraculo.png"));
+        }else{
+             visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\racobaTropa.png"));
+        }
+       
+        return visual;
+    }
+    
+    
     public racoba(tabuleiro tabul, time timinho, int ataque, int defesa, int vida, int rangeMovimento, String nome, partidaCST partidaCST){
         super(tabul, timinho, ataque, defesa, vida, rangeMovimento, nome);
+        this.timinho = timinho;
         setTravaMov(false);
         setInventario(new gacha("Lucky Wheel", partidaCST, 0));
     }

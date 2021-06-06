@@ -206,6 +206,7 @@ public class partidaCST implements Serializable{
     }
 
     public void perfomaceFazerMovimento(CSTposicao posicaoOrigem, CSTposicao posicaoDestino) throws FileNotFoundException{
+        Image visual;
         posicao origem = posicaoOrigem.toPosicao();
         CSTpeca miguezz = (CSTpeca) tabuleiro.peca(origem);
         if(miguezz instanceof miguez){
@@ -216,9 +217,23 @@ public class partidaCST implements Serializable{
         validacaoOrigem(origem);
         validacaoOrigemDestino(origem, destino);
         fazerMovimento(origem, destino);
+        visual = qualImagem(destino);
         imagens[origem.getLinha()][origem.getColuna()].setImage(null);
-        imagens[destino.getLinha()][destino.getColuna()].setImage(new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png")));
+        imagens[destino.getLinha()][destino.getColuna()].setImage(visual);
         proximoTurno();
+    }
+    private Image qualImagem(posicao posicao) throws FileNotFoundException{
+        CSTpeca pecavisual = acharPecaPorPosicao(posicao);
+        Image visual = null;
+        if(pecavisual instanceof miguez){
+            visual = ((miguez) pecavisual).getVisual();
+        }else if(pecavisual instanceof leao){
+            visual = ((leao) pecavisual).getVisual();
+        }else if(pecavisual instanceof racoba){
+            visual = ((racoba) pecavisual).getVisual();
+        }
+        //lembrar de colocar os visuais dos outros personagens
+        return visual;
     }
     public void perfomaceAtaque(CSTposicao posicaoAtacante, CSTposicao posicaoAtacado){
         posicao posAtacante = posicaoAtacante.toPosicao();
@@ -635,6 +650,7 @@ public class partidaCST implements Serializable{
                 }else{
                     pecasTropa.remove(peca);
                 }
+                imagens[peca.getPosicao().getLinha()][peca.getPosicao().getColuna()].setImage(null);
             }
         }
     }   
@@ -806,11 +822,15 @@ public class partidaCST implements Serializable{
             colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'D');
 
         }else if(getIDmapa() == 2){
-            colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
-            colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'G');
-            colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"henrigO", this), 8, 'B');
-            colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 23,5,"leaoT"), 8, 'D');
-            colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 7, 'B');
+            //colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
+            //colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'G');
+            //colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"henrigO", this), 6, 'B');
+            colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 23,5,"leaoT"), 8, 'B');
+            colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT"), 7, 'B');
+            colocarNovaPeca(new racoba(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT",this), 6, 'B');
+            colocarNovaPeca(new racoba(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT",this), 5, 'B');
+            colocarNovaPeca(new miguez(tabuleiro, time.ORACULO, 20, 0, 120,5,this,"leaoT"), 4, 'B');
+            colocarNovaPeca(new miguez(tabuleiro, time.TROPA, 20, 0, 120,5,this,"leaoT"), 3, 'B');
         }else{
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'A');
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'Z');

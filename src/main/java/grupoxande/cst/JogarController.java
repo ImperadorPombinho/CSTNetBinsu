@@ -5,13 +5,13 @@
  */
 package grupoxande.cst;
 
-import CSTgame.personagensCST.henridog;
 import CSTgame.CSTpeca;
 import CSTgame.CSTposicao;
 import CSTgame.exececaoCST;
 import CSTgame.partidaCST;
 import CSTgame.personagensCST.leao;
 import CSTgame.personagensCST.miguez;
+import CSTgame.personagensCST.racoba;
 import static grupoxande.cst.App.*;
 import java.io.FileInputStream;
 
@@ -56,7 +56,7 @@ public class JogarController implements Initializable {
         
     }
     
-void inicialiarTabulImagens(){
+private void inicialiarTabulImagens(){
     for (int i = 0; i < tamanhoTabul; i++) {
         for (int j = 0; j < tamanhoTabul; j++) {
             imagens[i][j] = new ImageView();
@@ -74,7 +74,7 @@ void inicialiarTabulImagens(){
     private Button botaoAtacar;
 
     @FXML
-    void fazerAtaque(ActionEvent event) {
+   public  void fazerAtaque(ActionEvent event) {
          Alert alerta = new Alert(Alert.AlertType.ERROR);
     alerta.setTitle("ERRO");
     try {
@@ -116,7 +116,7 @@ void inicialiarTabulImagens(){
     private Button botaoMovimentar;
 
     @FXML
-    void fazerMovimentoo(ActionEvent event){
+    public void fazerMovimentoo(ActionEvent event){
      Alert alerta = new Alert(Alert.AlertType.ERROR);
     alerta.setTitle("ERRO");
     try {
@@ -166,7 +166,7 @@ void inicialiarTabulImagens(){
     }
     
 }*/
-    void printarTabuleiroPossiveisMovimento(CSTposicao origem){
+    private void printarTabuleiroPossiveisMovimento(CSTposicao origem){
         boolean[][] possiveisMovimentos = partidaCST.possiveisMovimentos(origem);
         for (int i = 0; i < tamanhoTabul; i++) {
             for (int j = 0; j < tamanhoTabul; j++) {
@@ -175,7 +175,7 @@ void inicialiarTabulImagens(){
         }
         
     }
-    void printarTabuleiroPossiveisAtaques(CSTposicao atacante){
+   private void printarTabuleiroPossiveisAtaques(CSTposicao atacante){
         boolean[][] possiveisAtaques = partidaCST.possiveisAtaques(atacante);
         for (int i = 0; i < tamanhoTabul; i++) {
             for (int j = 0; j < tamanhoTabul; j++) {
@@ -183,7 +183,7 @@ void inicialiarTabulImagens(){
             }
         }
     }
-void inicializarTabuleiro(){
+private void inicializarTabuleiro(){
     for (int i = 0; i < tamanhoTabul; i++) {
         for (int j = 0; j < tamanhoTabul; j++) {
            tabuleiro[i][j] = new Rectangle(j*50, i*50, 50, 50);
@@ -199,7 +199,7 @@ void inicializarTabuleiro(){
             }
         }
 }
-void resetarTabuleiro(){
+private void resetarTabuleiro(){
     for (int i = 0; i < tamanhoTabul; i++) {
         for (int j = 0; j < tamanhoTabul; j++) {
              if((i%2==0 && j%2==0) || (i%2==1 && j%2==1)){
@@ -210,33 +210,37 @@ void resetarTabuleiro(){
         }
     }
 }
-void inicializarImagens(char coluna, int linha){
+private void inicializarImagens(char coluna, int linha){
     posicao posicaoinicial = new CSTposicao(coluna, linha, tamanhoTabul).toPosicao();
     CSTpeca visualPeca = partidaCST.acharPecaPorPosicao(posicaoinicial);
     Image visual  = null;
 
      try{
-          if(visualPeca instanceof henridog){
-            visual = ((henridog) visualPeca).getVisual();
+          if(visualPeca instanceof racoba){
+            visual = ((racoba) visualPeca).getVisual();
         
            }else if(visualPeca instanceof miguez){
             visual = ((miguez) visualPeca).getVisual();
            }else if(visualPeca instanceof leao){
                visual = ((leao) visualPeca).getVisual();
            }
+          
      }catch(FileNotFoundException e){
          e.printStackTrace();
      }
             imagens[posicaoinicial.getLinha()][posicaoinicial.getColuna()].setImage(visual);
        
 }
-void setupInicial(){
+private void setupInicial(){
     inicializarImagens('B', 8);
-     inicializarImagens('D', 8);
      inicializarImagens('B', 7);
+     inicializarImagens('B', 6);
+     inicializarImagens('B', 5);
+     inicializarImagens('B', 4);
+     inicializarImagens('B', 3);
        
 }
-void animacaoAtaque(posicao atacado){
+private void animacaoAtaque(posicao atacado){
     Image animacao = null;   
     try {
             animacao = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\atqanimacao.gif"));

@@ -22,6 +22,7 @@ import tabuleiroGame.tabuleiro;
 public class leao extends CSTpeca{
     private boolean travaratq; 
     private List<CSTpeca> aliados = new ArrayList<>();
+    private time timinho;
     public boolean isTravaratq() {
         return travaratq;
     }
@@ -51,7 +52,21 @@ public class leao extends CSTpeca{
     private Image visual;
 
     public Image getVisual() throws FileNotFoundException {
-        visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png"));
+        if(modoSurtado()){
+            if(timinho == time.ORACULO){
+                visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaoOraculoSurtado.png"));
+            }else{
+                visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaoTropaSurtado.png"));
+            }
+        }else{
+            if(timinho == time.ORACULO){
+                visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaoOraculo.png"));
+            }else{
+                visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaoTropa.png"));
+            }
+            
+        }
+        
         return visual;
     }
    public int getContSurtez() {
@@ -69,6 +84,7 @@ public class leao extends CSTpeca{
 
     public leao(tabuleiro tabul, time timinho, int ataque, int defesa, int vida, int rangeMovimento, String nome) {
         super(tabul, timinho, ataque, defesa, vida, rangeMovimento, nome);
+        this.timinho = timinho;
         setTravaratq(true);
         setHabAtivado(false);
         setTravaMov(false);

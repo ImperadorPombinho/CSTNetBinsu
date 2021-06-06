@@ -23,14 +23,21 @@ public class miguez extends CSTpeca {
     Random aleatorio = new Random();
     private int dormindo;
     private partidaCST partida;
+    private time timinho;
     private Image visual;
 
     public Image getVisual() throws FileNotFoundException {
-        visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\migueznojogo.png"));
+        if(timinho == time.ORACULO){
+            visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\miguezOraculo.png"));
+        }else{
+            visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\miguezTropa.png"));
+        }
+        
         return visual;
     }
     public miguez(tabuleiro tabul, time timinho, int ataque, int defesa, int vida, int rangeMovimento, partidaCST partida, String nome) {
         super(tabul, timinho, ataque, defesa, vida, rangeMovimento, nome);
+        this.timinho = timinho;
         this.partida = partida;
         setTravaMov(false);
     }
