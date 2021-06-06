@@ -62,21 +62,18 @@ public class UI {
         System.out.println("==================================================================");
         
     }
-    public static int printarPartida(partidaCST partidaCST, String[] nomes, int numeroLinhas, Scanner scan){
-        time testa;
-        int selec = 0;
-        testa = partidaCST.testaQuemGanhou();
-        if(testa == time.ORACULO){
-            printarVencedor(nomes[0]);
-        }else if(testa == time.TROPA){
-            printarVencedor(nomes[1]);
-        }else{
+    public static String printarPartida(partidaCST partidaCST, String[] nomes){
+        StringBuilder string = new StringBuilder();
+       
+        
+   
 
         
               
-        printarTabuleiro(partidaCST.getPecas(), numeroLinhas);
-        System.out.println();
-        System.out.println("Turno: " + partidaCST.getTurno());
+        //printarTabuleiro(partidaCST.getPecas(), numeroLinhas);
+        //System.out.println();
+        
+        string.append("Turno: " + partidaCST.getTurno() + "\n");
         
 
 
@@ -84,24 +81,16 @@ public class UI {
 
         if(partidaCST.getJogador().getTimeAtual() == time.ORACULO){
             partidaCST.getJogador().setNome(nomes[0]);
-            System.out.println("Esperando " + partidaCST.getJogador().getNome() + " jogar");
-            System.out.println("Peça a ser jogada: " + partidaCST.getJogador().getPecaAtual().getNome() + " " +partidaCST.getJogador().getPecaAtual().toString());
+            string.append("Esperando " + partidaCST.getJogador().getNome() + " jogar" + "\n");
+            string.append("Peça a ser jogada: " + partidaCST.getJogador().getPecaAtual().getNome() + " " +partidaCST.getJogador().getPecaAtual().toString() + "\n");
         }else{
             partidaCST.getJogador().setNome(nomes[1]);
-            System.out.println("Esperando " + partidaCST.getJogador().getNome() + " jogar");
-            System.out.println("Peça a ser jogada: " + partidaCST.getJogador().getPecaAtual().getNome() + " " +partidaCST.getJogador().getPecaAtual().toString());
+            string.append("Esperando " + partidaCST.getJogador().getNome() + " jogar" + "\n");
+            string.append("Peça a ser jogada: " + partidaCST.getJogador().getPecaAtual().getNome() + " " +partidaCST.getJogador().getPecaAtual().toString() + "\n");
         }
-        String status = printarStatus(partidaCST.getJogador().getPecaAtual(), numeroLinhas);
-        System.out.println(status);
-        System.out.println("Escolha a acao abaixo: ");
-        System.out.println("1-Atacar");
-        System.out.println("2-Movimentar");
-        System.out.println("3-Habilidade");
-        System.out.println("4-Usar Item");
-        selec = scan.nextInt();
-    }
-    
-        return selec;
+       // String status = printarStatus(partidaCST.getJogador().getPecaAtual(), numeroLinhas);
+        //System.out.println(status);
+        return string.toString();
     }
     private static void imprimirLIsta(List<itemConsumivel> qualquer){
         int cont = 1;

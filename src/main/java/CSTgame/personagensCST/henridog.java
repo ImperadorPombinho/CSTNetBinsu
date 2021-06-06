@@ -8,6 +8,9 @@ package CSTgame.personagensCST;
 import CSTgame.CSTpeca;
 import CSTgame.partidaCST;
 import CSTgame.time;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import javafx.scene.image.Image;
 import tabuleiroGame.posicao;
 import tabuleiroGame.tabuleiro;
 
@@ -18,7 +21,11 @@ import tabuleiroGame.tabuleiro;
 public class henridog extends CSTpeca{
 private int vidaMax;
 private partidaCST partidaCST;
-
+   private Image visual;
+    public Image getVisual() throws FileNotFoundException {
+        visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png"));
+        return visual;
+    }
 public int getVidaMax() {
     return vidaMax;
 }

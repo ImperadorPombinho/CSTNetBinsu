@@ -5,18 +5,26 @@
  */
 package grupoxande.cst;
 
+import CSTgame.personagensCST.henridog;
+import CSTgame.CSTpeca;
 import CSTgame.CSTposicao;
+import CSTgame.exececaoCST;
 import CSTgame.partidaCST;
+import CSTgame.personagensCST.leao;
+import CSTgame.personagensCST.miguez;
 import static grupoxande.cst.App.*;
 import java.io.FileInputStream;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,18 +39,23 @@ import tabuleiroGame.posicao;
  */
 public class JogarController implements Initializable {
     //partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
+    //partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
     partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
-       @FXML
+    @FXML
     private AnchorPane telaJogar;
+    @FXML
+    private Label printarPartida;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         inicializarTabuleiro();
         inicialiarTabulImagens();
         setupInicial();
-
+        printarPartida.setText(UI.printarPartida(partidaCST, nomes));
         
     }
+    
 void inicialiarTabulImagens(){
     for (int i = 0; i < tamanhoTabul; i++) {
         for (int j = 0; j < tamanhoTabul; j++) {
@@ -58,11 +71,55 @@ void inicialiarTabulImagens(){
     }
 }
     @FXML
+    private Button botaoAtacar;
+
+    @FXML
+    void fazerAtaque(ActionEvent event) {
+         Alert alerta = new Alert(Alert.AlertType.ERROR);
+    alerta.setTitle("ERRO");
+    try {
+        TextInputDialog pegarposicao = new TextInputDialog();
+        pegarposicao.setTitle("posição");
+        pegarposicao.setHeaderText("Me de a posição incial do personagem a ser movido");
+        pegarposicao.setContentText("Valor: ");
+        pegarposicao.showAndWait();
+        posicao = pegarposicao.getResult();
+        CSTposicao atacante = UI.traduzirPosicao(10, posicao);
+        //printarTabuleiroPossiveisMovimento(mover);
+        printarTabuleiroPossiveisAtaques(atacante);
+        pegarposicao = new TextInputDialog();
+        pegarposicao.setTitle("posição");
+        pegarposicao.setHeaderText("Me de a posição final do personagem a ser movido");
+        pegarposicao.setContentText("Valor: ");
+        pegarposicao.showAndWait();
+        posicaoFinal = pegarposicao.getResult();
+
+        CSTposicao atacado = UI.traduzirPosicao(10, posicaoFinal);
+        animacaoAtaque(atacado.toPosicao());
+        partidaCST.perfomaceAtaque(atacante, atacado);
+        
+           //partidaCST.perfomaceFazerMovimento(mover, movido);
+     }catch(InputMismatchException e){
+          alerta.setHeaderText("FALHA AO DIGTAR");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
+          
+      }catch(exececaoCST e){
+          alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
+      }
+    resetarTabuleiro();
+    printarPartida.setText(UI.printarPartida(partidaCST, nomes));
+    }
+    @FXML
     private Button botaoMovimentar;
 
     @FXML
-    void fazerMovimentoo(ActionEvent event) throws FileNotFoundException {
-    
+    void fazerMovimentoo(ActionEvent event){
+     Alert alerta = new Alert(Alert.AlertType.ERROR);
+    alerta.setTitle("ERRO");
+    try {
     TextInputDialog pegarposicao = new TextInputDialog();
     pegarposicao.setTitle("posição");
     pegarposicao.setHeaderText("Me de a posição incial do personagem a ser movido");
@@ -77,10 +134,26 @@ void inicialiarTabulImagens(){
     pegarposicao.setContentText("Valor: ");
     pegarposicao.showAndWait();
     posicaoFinal = pegarposicao.getResult();
-    
+   
     CSTposicao movido = UI.traduzirPosicao(10, posicaoFinal);
-    partidaCST.perfomaceFazerMovimento(mover, movido);
+    
+       partidaCST.perfomaceFazerMovimento(mover, movido);
+     }catch (FileNotFoundException ex) {
+           alerta.setHeaderText("FALHA EM ARQUIVO");
+           alerta.setContentText("Arquivo nao encontrado");
+           alerta.show();
+      }catch(InputMismatchException e){
+          alerta.setHeaderText("FALHA AO DIGTAR");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
+          
+      }catch(exececaoCST e){
+          alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
+      }
     resetarTabuleiro();
+    printarPartida.setText(UI.printarPartida(partidaCST, nomes));
     
 //posicao = JOptionPane.showInputDialog("Qual posição esta a peça a ser movida");
     }
@@ -101,6 +174,14 @@ void inicialiarTabulImagens(){
             }
         }
         
+    }
+    void printarTabuleiroPossiveisAtaques(CSTposicao atacante){
+        boolean[][] possiveisAtaques = partidaCST.possiveisAtaques(atacante);
+        for (int i = 0; i < tamanhoTabul; i++) {
+            for (int j = 0; j < tamanhoTabul; j++) {
+                UI.printarTabuleiroPossiveisAlgumaCoisa(possiveisAtaques[i][j], i, j);
+            }
+        }
     }
 void inicializarTabuleiro(){
     for (int i = 0; i < tamanhoTabul; i++) {
@@ -131,13 +212,46 @@ void resetarTabuleiro(){
 }
 void inicializarImagens(char coluna, int linha){
     posicao posicaoinicial = new CSTposicao(coluna, linha, tamanhoTabul).toPosicao();
-        try {
-            imagens[posicaoinicial.getLinha()][posicaoinicial.getColuna()].setImage(new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png")));
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        }
+    CSTpeca visualPeca = partidaCST.acharPecaPorPosicao(posicaoinicial);
+    Image visual  = null;
+
+     try{
+          if(visualPeca instanceof henridog){
+            visual = ((henridog) visualPeca).getVisual();
+        
+           }else if(visualPeca instanceof miguez){
+            visual = ((miguez) visualPeca).getVisual();
+           }else if(visualPeca instanceof leao){
+               visual = ((leao) visualPeca).getVisual();
+           }
+     }catch(FileNotFoundException e){
+         e.printStackTrace();
+     }
+            imagens[posicaoinicial.getLinha()][posicaoinicial.getColuna()].setImage(visual);
+       
 }
 void setupInicial(){
     inicializarImagens('B', 8);
+     inicializarImagens('D', 8);
+     inicializarImagens('B', 7);
+       
+}
+void animacaoAtaque(posicao atacado){
+    Image animacao = null;   
+    try {
+            animacao = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\atqanimacao.gif"));
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    if(imagens[atacado.getLinha()][atacado.getColuna()] != null){
+        imagens[atacado.getLinha()][atacado.getColuna()] = new ImageView(animacao);
+        imagens[atacado.getLinha()][atacado.getColuna()].setFitHeight(50);
+            imagens[atacado.getLinha()][atacado.getColuna()].setFitWidth(50);
+            imagens[atacado.getLinha()][atacado.getColuna()].setLayoutX(0);
+            imagens[atacado.getLinha()][atacado.getColuna()].setLayoutY(0);
+            imagens[atacado.getLinha()][atacado.getColuna()].setX(atacado.getColuna()*50);
+            imagens[atacado.getLinha()][atacado.getColuna()].setY(atacado.getLinha()*50);
+        telaJogar.getChildren().add(imagens[atacado.getLinha()][atacado.getColuna()]);
+    }
 }
 }

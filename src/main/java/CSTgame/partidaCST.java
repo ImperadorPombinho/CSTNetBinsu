@@ -184,6 +184,15 @@ public class partidaCST implements Serializable{
         }
         return matriz;
     }
+    public CSTpeca acharPecaPorPosicao(posicao posicao){
+        CSTpeca[][] matrix = getPecas();
+        if(matrix[posicao.getLinha()][posicao.getColuna()] != null){
+                    return matrix[posicao.getLinha()][posicao.getColuna()];
+         }else{
+           return null; 
+        }
+        
+    }
 
     public boolean[][] possiveisMovimentos(CSTposicao posicaoOrigem){
         posicao posicao = posicaoOrigem.toPosicao();
@@ -244,6 +253,7 @@ public class partidaCST implements Serializable{
                         pecasTropa.remove((CSTpeca)capturada);
                         setIndTropa(getIndTropa() - 1);
                     }
+                    imagens[posAtacado.getLinha()][posAtacado.getColuna()].setImage(null);
                 }
             }else{
                 if(atacante instanceof racoba){
@@ -275,7 +285,8 @@ public class partidaCST implements Serializable{
                         }
                     }
                 
-            } 
+            }
+          imagens[posAtacado.getLinha()][posAtacado.getColuna()].setImage(null);
         }
         
     }
@@ -797,8 +808,9 @@ public class partidaCST implements Serializable{
         }else if(getIDmapa() == 2){
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'G');
-            colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT", this), 8, 'B');
-            colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'D');
+            colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"henrigO", this), 8, 'B');
+            colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 23,5,"leaoT"), 8, 'D');
+            colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 7, 'B');
         }else{
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'A');
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'Z');
