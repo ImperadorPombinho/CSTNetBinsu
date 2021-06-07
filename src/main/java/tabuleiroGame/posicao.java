@@ -5,6 +5,8 @@
  */
 package tabuleiroGame;
 
+import CSTgame.CSTposicao;
+
 /**
  *
  * @author Pedrão Barros
@@ -39,8 +41,9 @@ public class posicao {
     public String toString(){
         return getLinha() + ", " + getColuna();
     }
-	public boolean posicaoExiste(posicao posTeste) {
+    public boolean posicaoExiste(posicao posTeste) {
 		return false;
 	}
+
     
 }

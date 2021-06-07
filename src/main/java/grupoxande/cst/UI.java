@@ -17,6 +17,7 @@ import static grupoxande.cst.App.tabuleiro;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import tabuleiroGame.posicao;
 
 /**
  *
@@ -284,18 +285,12 @@ public class UI {
         }
        
     }
-    private static String printarStatus(CSTpeca peca, int linhas){
+    public static String printarStatus(CSTpeca peca, int linhas){
         StringBuilder Status = new StringBuilder();
         Status.append("\n==========STATUS==========");
         Status.append("\n");
-        if(peca.getTiminho() == time.ORACULO){
-            Status.append("\tNome: " +ANSI_BLUE+ peca.getNome()+ ANSI_RESET + "\n");
-            Status.append("\tPeca: " + ANSI_BLUE + peca + ANSI_RESET + "\n");
-
-        }else{
-            Status.append("\tNome: " +ANSI_RED+ peca.getNome()+ ANSI_RESET+ "\n");
-            Status.append("\tPeca: " + ANSI_RED + peca + ANSI_RESET + "\n"); 
-        }
+        Status.append("\tNome: " + peca.getNome() + "\n");
+        Status.append("\tPeca: " + peca + "\n");
         Status.append("\tVida: " + peca.getVida());
         Status.append("\n");
         Status.append("\tAtaque: "+peca.getAtaque());
@@ -304,11 +299,16 @@ public class UI {
         Status.append("\n");
         Status.append("\tRange geral: "+ peca.getRangeMovimento());
         Status.append("\n");
+        CSTposicao posatual = new CSTposicao('A', 1, linhas);
+        posatual.atualizarPosicao(peca.getPosicao(), linhas);
+        Status.append("\tPosição: "+ posatual);
+        Status.append("\n");
         if(peca.getInventario() == null){
             Status.append("\tInventario: "+ peca.getInventario());
         }else{
             Status.append("\tInventario: "+ peca.getInventario().getNomeItem());
         }
+        
         
         Status.append("\n");
         Status.append("\n===========================");
@@ -339,4 +339,5 @@ public class UI {
         }
         return linhas;
     }
+  
 }

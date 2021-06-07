@@ -16,7 +16,7 @@ public class CSTposicao {
     private int linha;
     private int linhaMax;
 
-    public int getColuna() {
+    public char getColuna() {
         return coluna;
     }
     public void setColuna(char coluna) {
@@ -49,10 +49,14 @@ public class CSTposicao {
     public CSTposicao voltaCsTposicao(posicao posicao, int linhas){
         return new CSTposicao((char)('A' + posicao.getColuna()), linhas - getLinha(), linhas);
     }
+    public void atualizarPosicao(posicao posicao, int linhasMax){
+        setColuna((char)('A' + posicao.getColuna()));
+        setLinha(linhasMax - posicao.getLinha());
+    }
     @Override
     public String toString(){
         return "" + getColuna() + getLinha();
     }
-
+    
 
 }

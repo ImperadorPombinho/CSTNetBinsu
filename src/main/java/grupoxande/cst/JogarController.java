@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import tabuleiroGame.posicao;
@@ -45,7 +46,9 @@ public class JogarController implements Initializable {
     private AnchorPane telaJogar;
     @FXML
     private Label printarPartida;
-    
+    @FXML
+    private Label statuslabel;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -53,8 +56,11 @@ public class JogarController implements Initializable {
         inicialiarTabulImagens();
         setupInicial();
         printarPartida.setText(UI.printarPartida(partidaCST, nomes));
-        
+         statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
+     
+
     }
+
     
 private void inicialiarTabulImagens(){
     for (int i = 0; i < tamanhoTabul; i++) {
@@ -111,6 +117,7 @@ private void inicialiarTabulImagens(){
       }
     resetarTabuleiro();
     printarPartida.setText(UI.printarPartida(partidaCST, nomes));
+    statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
     }
     @FXML
     private Button botaoMovimentar;
@@ -154,8 +161,50 @@ private void inicialiarTabulImagens(){
       }
     resetarTabuleiro();
     printarPartida.setText(UI.printarPartida(partidaCST, nomes));
+     statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
     
 //posicao = JOptionPane.showInputDialog("Qual posição esta a peça a ser movida");
+    }
+    @FXML
+    public void usarHabilidade(ActionEvent event) {
+         Alert alerta = new Alert(Alert.AlertType.ERROR);
+         alerta.setTitle("ERRO");
+         try {
+            TextInputDialog pegarposicao = new TextInputDialog();
+            pegarposicao.setTitle("posição");
+            pegarposicao.setHeaderText("Me de a posição incial do personagem que vai utilizar uma habilidade");
+            pegarposicao.setContentText("Valor: ");
+            pegarposicao.showAndWait();
+            posicao = pegarposicao.getResult();
+            CSTposicao origem = UI.traduzirPosicao(10, posicao);
+            //printarTabuleiroPossiveisMovimento(mover);
+            if(partidaCST.getJogador().getPecaAtual() instanceof racoba){
+                partidaCST.perfomaceHabilidade(origem, origem);
+            }else{
+                
+            
+            pegarposicao = new TextInputDialog();
+            pegarposicao.setTitle("posição");
+            pegarposicao.setHeaderText("Me de a posição final do personagem que vai sofrer a habilidade");
+            pegarposicao.setContentText("Valor: ");
+            pegarposicao.showAndWait();
+            posicaoFinal = pegarposicao.getResult();
+            CSTposicao destino = UI.traduzirPosicao(10, posicaoFinal);
+            partidaCST.perfomaceHabilidade(origem, destino);
+            }
+     }catch(InputMismatchException e){
+          alerta.setHeaderText("FALHA AO DIGTAR");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
+          
+      }catch(exececaoCST e){
+          alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
+      }
+    
+    printarPartida.setText(UI.printarPartida(partidaCST, nomes));
+     statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
     }
 /*void partidaIniciada(){
     String resp = "S";
@@ -233,11 +282,9 @@ private void inicializarImagens(char coluna, int linha){
 }
 private void setupInicial(){
     inicializarImagens('B', 8);
-     inicializarImagens('B', 7);
-     inicializarImagens('B', 6);
-     inicializarImagens('B', 5);
-     inicializarImagens('B', 4);
-     inicializarImagens('B', 3);
+    inicializarImagens('B', 7);
+    inicializarImagens('B', 6);
+
        
 }
 private void animacaoAtaque(posicao atacado){
