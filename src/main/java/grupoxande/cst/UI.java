@@ -17,7 +17,7 @@ import static grupoxande.cst.App.tabuleiro;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import tabuleiroGame.posicao;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -93,27 +93,42 @@ public class UI {
         //System.out.println(status);
         return string.toString();
     }
-    private static void imprimirLIsta(List<itemConsumivel> qualquer){
+    protected static void imprimirLIsta(List<itemConsumivel> qualquer, partidaCST partidaCST){
+        Alert mostrar = new Alert(Alert.AlertType.INFORMATION);
+        StringBuilder mostrarItem = new StringBuilder();
+        mostrar.setTitle("ITEMS");
+        mostrar.setHeaderText("Lista de Items Consumiveis");
+         qualquer.add(new itemConsumivel("Pizza", 5, partidaCST, 2));
+        qualquer.add(new itemConsumivel("FPYke", 5, partidaCST, 1));
+         qualquer.add(new itemConsumivel("pototonime", 5, partidaCST, 3));
         int cont = 1;
         if(qualquer.size() > 0){
             for (itemConsumivel itemConsumivel : qualquer) {
-                System.out.print(cont + " - " + itemConsumivel.getNome());
-                System.out.println();
+               mostrarItem.append(cont + " - " + itemConsumivel.getNome() + "\n");
                 cont++;
             }
+            mostrar.setContentText(mostrarItem.toString());
+            mostrar.show();
         }else{
             throw new exececaoCST("lista de itens vazia");
         }
 
     }
-    private static void imprimirLista(List<itemEquipavel> qualquer){
+    protected static void imprimirLista(List<itemEquipavel> qualquer, partidaCST partidaCST){
+        Alert mostrar = new Alert(Alert.AlertType.INFORMATION);
+        StringBuilder mostrarItem = new StringBuilder();
+        mostrar.setTitle("ITEMS");
+        mostrar.setHeaderText("Lista de Items Equipaveis");
+       qualquer.add(new itemEquipavel("Camisa da Playstation", partidaCST, 1));
+       qualquer.add(new itemEquipavel("Taco de Sinuca", partidaCST, 2));
         int cont = 1;
         if(qualquer.size() > 0){
             for (itemEquipavel itemEquipavel : qualquer) {
-                System.out.print(cont + " - " + itemEquipavel.getNomeItem());
-                System.out.println();
+                mostrarItem.append(cont + " - " + itemEquipavel.getNomeItem() + "\n");
                 cont++;
             }
+            mostrar.setContentText(mostrarItem.toString());
+            mostrar.show();
         }else{
             throw new exececaoCST("lista de itens vazia");
         }
@@ -125,15 +140,16 @@ public class UI {
         System.out.println("1 - Consumivel");
         System.out.println("2 - Equipavel");
         resp = scan.nextInt();
+        
         if(resp == 1){
             
             if(partidaCST.getJogador().getTimeAtual() == time.ORACULO){
-                imprimirLIsta(partidaCST.getItensConsumivelsO());
+                imprimirLIsta(partidaCST.getItensConsumivelsO(), partidaCST);
                 System.out.println("Escolha: ");
                 ID = scan.nextInt();
                 
             }else{
-                imprimirLIsta(partidaCST.getItensConsumivelsT());
+                imprimirLIsta(partidaCST.getItensConsumivelsT(), partidaCST);
                 System.out.println("Escolha: ");
                 ID = scan.nextInt();
             }
@@ -146,11 +162,11 @@ public class UI {
         }else if(resp == 2){
            
             if(partidaCST.getJogador().getTimeAtual() == time.ORACULO){
-                imprimirLista(partidaCST.getItensEquipavelsO());
+                imprimirLista(partidaCST.getItensEquipavelsO(), partidaCST);
                 System.out.println("Escolha: ");
                 ID = scan.nextInt();
             }else{
-                imprimirLista(partidaCST.getItensEquipavelsT());
+                imprimirLista(partidaCST.getItensEquipavelsT(), partidaCST);
                 System.out.println("Escolha: ");
                 ID = scan.nextInt();
             }

@@ -12,6 +12,8 @@ import CSTgame.partidaCST;
 import CSTgame.personagensCST.leao;
 import CSTgame.personagensCST.miguez;
 import CSTgame.personagensCST.racoba;
+import CSTgame.personagensCST.juao;
+import CSTgame.time;
 import static grupoxande.cst.App.*;
 import java.io.FileInputStream;
 
@@ -28,7 +30,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import tabuleiroGame.posicao;
@@ -48,7 +49,8 @@ public class JogarController implements Initializable {
     private Label printarPartida;
     @FXML
     private Label statuslabel;
-
+    @FXML
+    private ImageView animacaoHabilidade;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -177,9 +179,15 @@ private void inicialiarTabulImagens(){
             pegarposicao.showAndWait();
             posicao = pegarposicao.getResult();
             CSTposicao origem = UI.traduzirPosicao(10, posicao);
+             animacaoHabilidade(origem.toPosicao());
+             
             //printarTabuleiroPossiveisMovimento(mover);
             if(partidaCST.getJogador().getPecaAtual() instanceof racoba){
                 partidaCST.perfomaceHabilidade(origem, origem);
+                
+                animacaoHabilidade.setImage(null);
+                printarPartida.setText(UI.printarPartida(partidaCST, nomes));
+                statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
             }else{
                 
             
@@ -191,20 +199,108 @@ private void inicialiarTabulImagens(){
             posicaoFinal = pegarposicao.getResult();
             CSTposicao destino = UI.traduzirPosicao(10, posicaoFinal);
             partidaCST.perfomaceHabilidade(origem, destino);
+             
+             animacaoHabilidade.setImage(null);
+             printarPartida.setText(UI.printarPartida(partidaCST, nomes));
+             statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
             }
+     }catch(FileNotFoundException e){
+          alerta.setHeaderText("FALHA AO LOCALIZAR ARQUIVO");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
+          animacaoHabilidade.setImage(null);
      }catch(InputMismatchException e){
           alerta.setHeaderText("FALHA AO DIGTAR");
           alerta.setContentText(e.getMessage());
           alerta.show();
+          animacaoHabilidade.setImage(null);
           
       }catch(exececaoCST e){
           alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
           alerta.setContentText(e.getMessage());
           alerta.show();
+          animacaoHabilidade.setImage(null);
       }
     
     printarPartida.setText(UI.printarPartida(partidaCST, nomes));
      statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
+    }
+    @FXML
+    private Button botaoItem;
+    @FXML
+    public void usarItem(ActionEvent event) {
+        int resp, ID = 0;
+         Alert alerta = new Alert(Alert.AlertType.ERROR);
+         alerta.setTitle("ERRO");
+         try{
+           StringBuilder tipoItem = new StringBuilder();
+           tipoItem.append("Qual Tipo?" + "\n");
+           tipoItem.append("1 - Consumivel" + "\n");
+           tipoItem.append("2 - Equipavel" + "\n");
+           TextInputDialog pegarResp = new TextInputDialog();
+           pegarResp.setTitle("ITEM");
+           pegarResp.setHeaderText(tipoItem.toString());
+           pegarResp.setContentText("Qual?");
+           pegarResp.showAndWait();
+           resp = Integer.parseInt(pegarResp.getResult());
+           if(resp == 1){
+               if(partidaCST.getJogador().getTimeAtual() == time.ORACULO){
+                   UI.imprimirLIsta(partidaCST.getItensConsumivelsO(), partidaCST);
+               }else{
+                   UI.imprimirLIsta(partidaCST.getItensConsumivelsT(), partidaCST);
+               }
+               TextInputDialog pegarResp1 = new TextInputDialog();
+               pegarResp1.setTitle("ITEM");
+               pegarResp1.setHeaderText("Qual item vai querer usar?");
+               pegarResp1.setContentText("Escolha:");
+               pegarResp1.showAndWait();
+               ID = Integer.parseInt(pegarResp1.getResult());
+                TextInputDialog pegarResp2 = new TextInputDialog();
+               pegarResp2.setTitle("posição destino");
+               pegarResp2.setHeaderText("Qual personagem vai usar?");
+               pegarResp2.setContentText("Qual?");
+               pegarResp2.showAndWait();
+               String posicao = pegarResp2.getResult();
+               CSTposicao destino = UI.traduzirPosicao(tamanhoTabul, posicao);
+               partidaCST.perfomaceUsarItem(destino, ID);
+           }else if(resp == 2){
+               if(partidaCST.getJogador().getTimeAtual() == time.ORACULO){
+                   UI.imprimirLista(partidaCST.getItensEquipavelsO(), partidaCST);
+               }else{
+                   UI.imprimirLista(partidaCST.getItensEquipavelsT(), partidaCST);
+               }
+               TextInputDialog pegarResp1 = new TextInputDialog();
+               pegarResp1.setTitle("ITEM");
+               pegarResp1.setHeaderText("Qual item vai querer usar?");
+               pegarResp1.setContentText("Escolha:");
+               pegarResp1.showAndWait();
+               ID = Integer.parseInt(pegarResp1.getResult());
+               TextInputDialog pegarResp2 = new TextInputDialog();
+               pegarResp2.setTitle("posição destino");
+               pegarResp2.setHeaderText("Qual personagem vai equipar?");
+               pegarResp2.setContentText("Qual?");
+               pegarResp2.showAndWait();
+               String posicao = pegarResp2.getResult();
+               CSTposicao destino = UI.traduzirPosicao(tamanhoTabul, posicao);
+               partidaCST.perfomaceEquiparItem(destino, ID);
+               
+               
+           }
+            printarPartida.setText(UI.printarPartida(partidaCST, nomes));
+            statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
+             
+         }catch(InputMismatchException e){
+          alerta.setHeaderText("FALHA AO DIGTAR");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
+          animacaoHabilidade.setImage(null);
+          
+      }catch(exececaoCST e){
+          alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
+          animacaoHabilidade.setImage(null);
+      }
     }
 /*void partidaIniciada(){
     String resp = "S";
@@ -272,6 +368,8 @@ private void inicializarImagens(char coluna, int linha){
             visual = ((miguez) visualPeca).getVisual();
            }else if(visualPeca instanceof leao){
                visual = ((leao) visualPeca).getVisual();
+           }else if(visualPeca instanceof juao){
+               visual = ((juao) visualPeca).getVisual();
            }
           
      }catch(FileNotFoundException e){
@@ -304,5 +402,19 @@ private void animacaoAtaque(posicao atacado){
             imagens[atacado.getLinha()][atacado.getColuna()].setY(atacado.getLinha()*50);
         telaJogar.getChildren().add(imagens[atacado.getLinha()][atacado.getColuna()]);
     }
+}
+private void animacaoHabilidade(posicao pospeca) throws FileNotFoundException{
+    CSTpeca peca = partidaCST.acharPecaPorPosicao(pospeca);
+    Image animacao = null;
+    if(peca instanceof racoba){
+        animacao = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\habilidadeRacoba.gif"));
+    }else if (peca instanceof juao){
+        animacao = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\habilidadeJuao.gif"));
+    }else if(peca instanceof miguez){
+        animacao = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\habilidadeMiguez.gif"));
+    }else if(peca instanceof leao){
+        animacao = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\habilidadeLeao.gif"));
+    }
+    animacaoHabilidade.setImage(animacao);
 }
 }

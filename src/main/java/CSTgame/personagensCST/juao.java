@@ -8,6 +8,9 @@ package CSTgame.personagensCST;
 import CSTgame.CSTpeca;
 import CSTgame.exececaoCST;
 import CSTgame.time;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import javafx.scene.image.Image;
 import tabuleiroGame.posicao;
 import tabuleiroGame.tabuleiro;
 
@@ -16,9 +19,19 @@ import tabuleiroGame.tabuleiro;
  * @author Pedrão Barros
  */
 public class juao extends CSTpeca{
-    
+    private Image visual;
+    private time timinho;
+    public Image getVisual() throws FileNotFoundException {
+        if(timinho == time.ORACULO){
+            visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\juaoOraculo.png"));
+        }else{
+            visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\juaoTropa.png"));
+        }
+        return visual;
+    }
     public juao(tabuleiro tabul, time timinho, int ataque, int defesa, int vida, int rangeMovimento, String nome){
         super(tabul, timinho, ataque, defesa, vida, rangeMovimento, nome);
+        this.timinho = timinho;
         setTravaMov(false);
         
     }
