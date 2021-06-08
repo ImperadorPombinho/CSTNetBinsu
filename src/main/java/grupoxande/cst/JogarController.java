@@ -31,6 +31,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import tabuleiroGame.posicao;
 
@@ -43,6 +44,7 @@ public class JogarController implements Initializable {
     //partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
     //partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
     partidaCST partidaCST = new partidaCST(tamanhoTabul, tamanhoTabul, ID);
+
     @FXML
     private AnchorPane telaJogar;
     @FXML
@@ -53,7 +55,8 @@ public class JogarController implements Initializable {
     private ImageView animacaoHabilidade;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
+
         inicializarTabuleiro();
         inicialiarTabulImagens();
         setupInicial();
@@ -338,11 +341,12 @@ private void inicializarTabuleiro(){
             }else{
                 tabuleiro[i][j].setStyle("-fx-fill : green;");
                 }
-                    
-            telaJogar.getChildren().add(tabuleiro[i][j]);
+                 telaJogar.getChildren().add(tabuleiro[i][j]);   
+            
                 
             }
         }
+    
 }
 private void resetarTabuleiro(){
     for (int i = 0; i < tamanhoTabul; i++) {
