@@ -27,6 +27,7 @@ public class App extends Application{
     public static String[] nomes = new String[2];
     public static Rectangle[][] tabuleiro;
     public static ImageView[][] imagens;
+    public static ImageView[][] animacoesAtaques;
     public static int tamanhoTabul;
     public static int ID;
     public static String posicao;

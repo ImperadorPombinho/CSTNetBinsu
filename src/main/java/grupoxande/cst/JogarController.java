@@ -59,6 +59,7 @@ public class JogarController implements Initializable {
 
         inicializarTabuleiro();
         inicialiarTabulImagens();
+        inicializarTabulAnimacoes();
         setupInicial();
         printarPartida.setText(UI.printarPartida(partidaCST, nomes));
          statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
@@ -81,6 +82,20 @@ private void inicialiarTabulImagens(){
         }
     }
 }
+private void inicializarTabulAnimacoes(){
+    for (int i = 0; i < tamanhoTabul; i++) {
+        for (int j = 0; j < tamanhoTabul; j++) {
+            animacoesAtaques[i][j] = new ImageView();
+            animacoesAtaques[i][j].setFitWidth(50);
+            animacoesAtaques[i][j].setFitHeight(50);
+            animacoesAtaques[i][j].setLayoutX(0);
+            animacoesAtaques[i][j].setLayoutY(0);
+            animacoesAtaques[i][j].setX(j*50);
+            animacoesAtaques[i][j].setY(i*50);
+            telaJogar.getChildren().add(animacoesAtaques[i][j]);
+        }
+    }
+}
     @FXML
     private Button botaoAtacar;
 
@@ -88,6 +103,7 @@ private void inicialiarTabulImagens(){
    public  void fazerAtaque(ActionEvent event) {
          Alert alerta = new Alert(Alert.AlertType.ERROR);
     alerta.setTitle("ERRO");
+    CSTposicao atacado = null, atacante = null;
     try {
         TextInputDialog pegarposicao = new TextInputDialog();
         pegarposicao.setTitle("posição");
@@ -95,7 +111,7 @@ private void inicialiarTabulImagens(){
         pegarposicao.setContentText("Valor: ");
         pegarposicao.showAndWait();
         posicao = pegarposicao.getResult();
-        CSTposicao atacante = UI.traduzirPosicao(10, posicao);
+        atacante = UI.traduzirPosicao(10, posicao);
         //printarTabuleiroPossiveisMovimento(mover);
         printarTabuleiroPossiveisAtaques(atacante);
         pegarposicao = new TextInputDialog();
@@ -105,11 +121,23 @@ private void inicialiarTabulImagens(){
         pegarposicao.showAndWait();
         posicaoFinal = pegarposicao.getResult();
 
-        CSTposicao atacado = UI.traduzirPosicao(10, posicaoFinal);
+       atacado = UI.traduzirPosicao(10, posicaoFinal);
         animacaoAtaque(atacado.toPosicao());
+        CSTpeca lion = partidaCST.acharPecaPorPosicao(atacado.toPosicao());
         partidaCST.perfomaceAtaque(atacante, atacado);
+        if(lion.getVida() > 0){
+            if(lion instanceof leao){
+                imagens[lion.getPosicao().getLinha()][lion.getPosicao().getColuna()].setImage(null);
+                imagens[lion.getPosicao().getLinha()][lion.getPosicao().getColuna()].setImage(((leao) lion).getVisual());
+            }
+        }
         
+       
            //partidaCST.perfomaceFazerMovimento(mover, movido);
+     }catch(FileNotFoundException e){
+          alerta.setHeaderText("FALHA AO ABRIR ARQUIVO");
+          alerta.setContentText(e.getMessage());
+          alerta.show();
      }catch(InputMismatchException e){
           alerta.setHeaderText("FALHA AO DIGTAR");
           alerta.setContentText(e.getMessage());
@@ -396,16 +424,7 @@ private void animacaoAtaque(posicao atacado){
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }
-    if(imagens[atacado.getLinha()][atacado.getColuna()] != null){
-        imagens[atacado.getLinha()][atacado.getColuna()] = new ImageView(animacao);
-        imagens[atacado.getLinha()][atacado.getColuna()].setFitHeight(50);
-            imagens[atacado.getLinha()][atacado.getColuna()].setFitWidth(50);
-            imagens[atacado.getLinha()][atacado.getColuna()].setLayoutX(0);
-            imagens[atacado.getLinha()][atacado.getColuna()].setLayoutY(0);
-            imagens[atacado.getLinha()][atacado.getColuna()].setX(atacado.getColuna()*50);
-            imagens[atacado.getLinha()][atacado.getColuna()].setY(atacado.getLinha()*50);
-        telaJogar.getChildren().add(imagens[atacado.getLinha()][atacado.getColuna()]);
-    }
+        animacoesAtaques[atacado.getLinha()][atacado.getColuna()].setImage(animacao);
 }
 private void animacaoHabilidade(posicao pospeca) throws FileNotFoundException{
     CSTpeca peca = partidaCST.acharPecaPorPosicao(pospeca);
