@@ -2,12 +2,6 @@ package grupoxande.cst;
 
 
 
-import CSTgame.CSTposicao;
-import CSTgame.exececaoCST;
-import CSTgame.partidaCST;
-import CSTgame.personagensCST.racoba;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
@@ -32,6 +27,8 @@ public class App extends Application{
     public static int ID;
     public static String posicao;
     public static String posicaoFinal;
+    public static Label[] legendaLinha;
+    public static Label[] legendaColuna;
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("telaInicial"), 640, 480);

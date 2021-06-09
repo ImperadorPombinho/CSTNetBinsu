@@ -61,6 +61,8 @@ public class JogarController implements Initializable {
         inicialiarTabulImagens();
         inicializarTabulAnimacoes();
         setupInicial();
+        inicializarLegendaLinha();
+        inicializarLegendaColuna();
         printarPartida.setText(UI.printarPartida(partidaCST, nomes));
          statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
      
@@ -360,21 +362,42 @@ private void inicializarTabulAnimacoes(){
         }
     }
 private void inicializarTabuleiro(){
-    for (int i = 0; i < tamanhoTabul; i++) {
-        for (int j = 0; j < tamanhoTabul; j++) {
+    int cont = 0;
+    for (int i = 0; i < tamanhoTabul + 1; i++) {
+        for (int j = 0; j < tamanhoTabul + 1; j++) {
            tabuleiro[i][j] = new Rectangle(j*50, i*50, 50, 50);
-                
-            if((i%2==0 && j%2==0) || (i%2==1 && j%2==1)){
+        
+            if((i%2==0 && j%2==0) || (i%2==1 && j%2==1) || i == tamanhoTabul || j == tamanhoTabul){
                 tabuleiro[i][j].setStyle("-fx-fill : white;");
             }else{
                 tabuleiro[i][j].setStyle("-fx-fill : green;");
                 }
+           
                  telaJogar.getChildren().add(tabuleiro[i][j]);   
             
                 
             }
         }
     
+}
+private void inicializarLegendaLinha(){
+    for (int i = 0; i < tamanhoTabul; i++) {
+        
+        legendaLinha[i] = new Label("" + (char)(i + 'A'));
+        legendaLinha[i].setLayoutX(12.5 + i*50);
+        legendaLinha[i].setLayoutY(50*tamanhoTabul + 20);
+       
+        telaJogar.getChildren().add(legendaLinha[i]);
+    }
+    
+}
+private void inicializarLegendaColuna(){
+    for (int i = 0; i < tamanhoTabul; i++) {
+        legendaColuna[i] = new Label("" + (tamanhoTabul - i));
+        legendaColuna[i].setLayoutY(12.5 + i*50);
+        legendaColuna[i].setLayoutX(50*tamanhoTabul + 20);
+        telaJogar.getChildren().add(legendaColuna[i]);
+    }
 }
 private void resetarTabuleiro(){
     for (int i = 0; i < tamanhoTabul; i++) {

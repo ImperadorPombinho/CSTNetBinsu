@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -46,9 +47,11 @@ public class JogarInicialController implements Initializable {
        nomes[0] = nome1.getText();
        nomes[1] = nome2.getText();
        tamanhoTabul = tamanhoBox.getSelectionModel().getSelectedItem();
-       tabuleiro = new Rectangle[tamanhoTabul][tamanhoTabul];
+       tabuleiro = new Rectangle[tamanhoTabul + 1][tamanhoTabul + 1];
        imagens = new ImageView[tamanhoTabul][tamanhoTabul];
        animacoesAtaques = new ImageView[tamanhoTabul][tamanhoTabul];
+       legendaLinha = new Label[tamanhoTabul];
+       legendaColuna = new Label[tamanhoTabul];
        if(tamanhoTabul == 10){
            ID = 2;
        }else if(tamanhoTabul == 20){
