@@ -24,6 +24,7 @@ module-info.class
 grupoxande\cst\TelaInicialController.class
 grupoxande\cst\SecondaryController.class
 CSTgame\partidaCST.class
+grupoxande\cst\VencedorController.class
 CSTgame\exececaoCST.class
 CSTgame\interfacesItems\consumivelIF.class
 CSTgame\CSTpeca.class

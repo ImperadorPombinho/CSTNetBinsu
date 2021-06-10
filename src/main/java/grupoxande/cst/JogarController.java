@@ -9,6 +9,7 @@ import CSTgame.CSTpeca;
 import CSTgame.CSTposicao;
 import CSTgame.exececaoCST;
 import CSTgame.partidaCST;
+import CSTgame.personagensCST.henridog;
 import CSTgame.personagensCST.leao;
 import CSTgame.personagensCST.miguez;
 import CSTgame.personagensCST.racoba;
@@ -18,6 +19,7 @@ import static grupoxande.cst.App.*;
 import java.io.FileInputStream;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
@@ -31,7 +33,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import tabuleiroGame.posicao;
 
@@ -127,12 +128,21 @@ private void inicializarTabulAnimacoes(){
         animacaoAtaque(atacado.toPosicao());
         CSTpeca lion = partidaCST.acharPecaPorPosicao(atacado.toPosicao());
         partidaCST.perfomaceAtaque(atacante, atacado);
+       
         if(lion.getVida() > 0){
             if(lion instanceof leao){
                 imagens[lion.getPosicao().getLinha()][lion.getPosicao().getColuna()].setImage(null);
                 imagens[lion.getPosicao().getLinha()][lion.getPosicao().getColuna()].setImage(((leao) lion).getVisual());
             }
         }
+           time vencedor = partidaCST.testaQuemGanhou();
+             if(vencedor == time.ORACULO){
+                 nomeVencedor = nomes[0];
+                 App.setRoot("vencedor");
+             }else if(vencedor == time.TROPA){
+                 nomeVencedor = nomes[1];
+                 App.setRoot("vencedor");
+             }
         
        
            //partidaCST.perfomaceFazerMovimento(mover, movido);
@@ -149,7 +159,9 @@ private void inicializarTabulAnimacoes(){
           alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
           alerta.setContentText(e.getMessage());
           alerta.show();
-      }
+      } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     resetarTabuleiro();
     printarPartida.setText(UI.printarPartida(partidaCST, nomes));
     statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
@@ -180,6 +192,15 @@ private void inicializarTabulAnimacoes(){
     CSTposicao movido = UI.traduzirPosicao(10, posicaoFinal);
     
        partidaCST.perfomaceFazerMovimento(mover, movido);
+        time vencedor = partidaCST.testaQuemGanhou();
+             if(vencedor == time.ORACULO){
+                 nomeVencedor = nomes[0];
+                 App.setRoot("vencedor");
+             }else if(vencedor == time.TROPA){
+                 nomeVencedor = nomes[1];
+                 App.setRoot("vencedor");
+             }
+             
      }catch (FileNotFoundException ex) {
            alerta.setHeaderText("FALHA EM ARQUIVO");
            alerta.setContentText("Arquivo nao encontrado");
@@ -193,7 +214,9 @@ private void inicializarTabulAnimacoes(){
           alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
           alerta.setContentText(e.getMessage());
           alerta.show();
-      }
+      } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     resetarTabuleiro();
     printarPartida.setText(UI.printarPartida(partidaCST, nomes));
      statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
@@ -212,13 +235,13 @@ private void inicializarTabulAnimacoes(){
             pegarposicao.showAndWait();
             posicao = pegarposicao.getResult();
             CSTposicao origem = UI.traduzirPosicao(10, posicao);
-             animacaoHabilidade(origem.toPosicao());
+             //animacaoHabilidade(origem.toPosicao());
              
             //printarTabuleiroPossiveisMovimento(mover);
             if(partidaCST.getJogador().getPecaAtual() instanceof racoba){
                 partidaCST.perfomaceHabilidade(origem, origem);
                 
-                animacaoHabilidade.setImage(null);
+                //animacaoHabilidade.setImage(null);
                 printarPartida.setText(UI.printarPartida(partidaCST, nomes));
                 statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
             }else{
@@ -233,9 +256,18 @@ private void inicializarTabulAnimacoes(){
             CSTposicao destino = UI.traduzirPosicao(10, posicaoFinal);
             partidaCST.perfomaceHabilidade(origem, destino);
              
-             animacaoHabilidade.setImage(null);
+             animacaoHabilidade(origem.toPosicao());
              printarPartida.setText(UI.printarPartida(partidaCST, nomes));
              statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
+             time vencedor = partidaCST.testaQuemGanhou();
+             if(vencedor == time.ORACULO){
+                 nomeVencedor = nomes[0];
+                 App.setRoot("vencedor");
+             }else if(vencedor == time.TROPA){
+                 nomeVencedor = nomes[1];
+                 App.setRoot("vencedor");
+             }
+             //animacaoHabilidade.setImage(null);
             }
      }catch(FileNotFoundException e){
           alerta.setHeaderText("FALHA AO LOCALIZAR ARQUIVO");
@@ -253,7 +285,9 @@ private void inicializarTabulAnimacoes(){
           alerta.setContentText(e.getMessage());
           alerta.show();
           animacaoHabilidade.setImage(null);
-      }
+      } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     
     printarPartida.setText(UI.printarPartida(partidaCST, nomes));
      statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
@@ -321,19 +355,28 @@ private void inicializarTabulAnimacoes(){
            }
             printarPartida.setText(UI.printarPartida(partidaCST, nomes));
             statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
-             
+            time vencedor = partidaCST.testaQuemGanhou();
+             if(vencedor == time.ORACULO){
+                 nomeVencedor = nomes[0];
+                 App.setRoot("vencedor");
+             }else if(vencedor == time.TROPA){
+                 nomeVencedor = nomes[1];
+                 App.setRoot("vencedor");
+             }
          }catch(InputMismatchException e){
           alerta.setHeaderText("FALHA AO DIGTAR");
           alerta.setContentText(e.getMessage());
           alerta.show();
-          animacaoHabilidade.setImage(null);
+          //animacaoHabilidade.setImage(null);
           
       }catch(exececaoCST e){
           alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
           alerta.setContentText(e.getMessage());
           alerta.show();
           animacaoHabilidade.setImage(null);
-      }
+      } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 /*void partidaIniciada(){
     String resp = "S";
@@ -425,6 +468,8 @@ private void inicializarImagens(char coluna, int linha){
                visual = ((leao) visualPeca).getVisual();
            }else if(visualPeca instanceof juao){
                visual = ((juao) visualPeca).getVisual();
+           }else if(visualPeca instanceof henridog){
+               visual = ((henridog) visualPeca).getVisual();
            }
           
      }catch(FileNotFoundException e){
@@ -460,6 +505,8 @@ private void animacaoHabilidade(posicao pospeca) throws FileNotFoundException{
         animacao = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\habilidadeMiguez.gif"));
     }else if(peca instanceof leao){
         animacao = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\habilidadeLeao.gif"));
+    }else if(peca instanceof henridog){
+        animacao = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\habilidadeHenridog.gif"));
     }
     animacaoHabilidade.setImage(animacao);
 }

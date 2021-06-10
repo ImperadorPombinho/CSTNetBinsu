@@ -5,6 +5,7 @@
  */
 package CSTgame;
 
+import java.io.FileNotFoundException;
 import tabuleiroGame.peca;
 import tabuleiroGame.posicao;
 import tabuleiroGame.tabuleiro;
@@ -115,7 +116,7 @@ public abstract class CSTpeca extends peca{
     public CSTpeca(tabuleiro tabul) {
         super(tabul);  
     }
-    public abstract void habilidade(CSTpeca generico);
+    public abstract void habilidade(CSTpeca generico) throws FileNotFoundException;
     
 
 }

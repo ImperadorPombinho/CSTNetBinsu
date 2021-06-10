@@ -234,6 +234,8 @@ public class partidaCST implements Serializable{
             visual = ((racoba) pecavisual).getVisual();
         }else if(pecavisual instanceof juao){
             visual = ((juao) pecavisual).getVisual();
+        }else if(pecavisual instanceof henridog){
+            visual = ((henridog) pecavisual).getVisual();
         }
         //lembrar de colocar os visuais dos outros personagens
         return visual;
@@ -310,7 +312,7 @@ public class partidaCST implements Serializable{
     }
     proximoTurno();
 }
-    public void perfomaceHabilidade(CSTposicao posicaoVoce, CSTposicao posicaoAliado){
+    public void perfomaceHabilidade(CSTposicao posicaoVoce, CSTposicao posicaoAliado) throws FileNotFoundException{
         posicao posicaooVoce = posicaoVoce.toPosicao();
         posicao posicaooAliado = posicaoAliado.toPosicao();
         validacaoHabilidadeGenericaPosicao(posicaooVoce);
@@ -403,7 +405,7 @@ public class partidaCST implements Serializable{
         }
         
     }
-    private void habilidade(CSTpeca voce, CSTpeca aliado){
+    private void habilidade(CSTpeca voce, CSTpeca aliado) throws FileNotFoundException{
        if(voce instanceof juao){
            habilidadeJuao((juao)voce, aliado);
        }else{
@@ -627,15 +629,16 @@ public class partidaCST implements Serializable{
         }
         return -1;
     }
-    public void morreu(CSTpeca peca, CSTpeca atacante){
+    public void morreu(CSTpeca peca, CSTpeca atacante) throws FileNotFoundException{
         posicao aux = peca.getPosicao();
         if(peca.getVida() <= 0){
-            
+            imagens[peca.getPosicao().getLinha()][peca.getPosicao().getColuna()].setImage(null);
             tabuleiro.removerPeca(peca.getPosicao());
             if(peca instanceof henridog){
                 if(((henridog)peca).isRENASCEU() == false){
                     ((henridog)peca).passiva();
                     tabuleiro.colocarPeca(peca, aux);
+                    imagens[peca.getPosicao().getLinha()][peca.getPosicao().getColuna()].setImage(((henridog) peca).getVisual());
                 }else{
                     if(((CSTpeca)peca).getTiminho() == time.ORACULO){
                         pecasOraculo.remove(peca);
@@ -646,6 +649,7 @@ public class partidaCST implements Serializable{
                     }
                 }
             }else{
+                 
                 if(peca.getTiminho() == time.ORACULO){
                     pecasOraculo.remove(peca);
 
@@ -653,7 +657,7 @@ public class partidaCST implements Serializable{
                 }else{
                     pecasTropa.remove(peca);
                 }
-                imagens[peca.getPosicao().getLinha()][peca.getPosicao().getColuna()].setImage(null);
+               
             }
         }
     }   
@@ -828,9 +832,9 @@ public class partidaCST implements Serializable{
             //colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
             //colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'G');
             //colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"henrigO", this), 6, 'B');
-            colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'B');
-            colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT"), 7, 'B');
-             //colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoO"), 6, 'B');
+            colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 119,5,"leaoT"), 8, 'B');
+            colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT",this), 7, 'B');
+            //colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoO"), 6, 'B');
            // colocarNovaPeca(new racoba(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT",this), 6, 'B');
             //colocarNovaPeca(new racoba(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT",this), 5, 'B');
             //colocarNovaPeca(new miguez(tabuleiro, time.ORACULO, 20, 0, 120,5,this,"leaoT"), 4, 'B');

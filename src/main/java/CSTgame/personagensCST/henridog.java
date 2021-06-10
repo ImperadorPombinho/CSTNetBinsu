@@ -21,9 +21,15 @@ import tabuleiroGame.tabuleiro;
 public class henridog extends CSTpeca{
 private int vidaMax;
 private partidaCST partidaCST;
+private time timinho;
    private Image visual;
     public Image getVisual() throws FileNotFoundException {
-        visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\leaonojogo.png"));
+        if(timinho == time.ORACULO){
+            visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\henridogOraculo.png"));
+        }else{
+            visual = new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\henridogTropa.png"));
+        }
+        
         return visual;
     }
 public int getVidaMax() {
@@ -42,6 +48,7 @@ public void setRENASCEU(boolean rENASCEU) {
 
 public henridog(tabuleiro tabul, time timinho, int ataque, int defesa, int vida, int rangeMovimento, String nome, partidaCST partidaCST){ 
     super(tabul, timinho, ataque, defesa, vida, rangeMovimento, nome);
+    this.timinho = timinho;
     this.vidaMax = vida;
     this.partidaCST = partidaCST;
     setRENASCEU(false);
@@ -178,7 +185,7 @@ public String toString(){
         return matAux;
     }  
     @Override
-    public void habilidade(CSTpeca generico) {
+    public void habilidade(CSTpeca generico) throws FileNotFoundException {
         CSTpeca qualquercoisa;
         posicao posTeste = new posicao (0, 0);
         int rangehab = 7;

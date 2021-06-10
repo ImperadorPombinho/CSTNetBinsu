@@ -29,6 +29,7 @@ public class App extends Application{
     public static String posicaoFinal;
     public static Label[] legendaLinha;
     public static Label[] legendaColuna;
+    public static String nomeVencedor;
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("telaInicial"), 640, 480);
