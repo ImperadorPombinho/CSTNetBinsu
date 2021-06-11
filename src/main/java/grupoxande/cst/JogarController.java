@@ -75,12 +75,12 @@ private void inicialiarTabulImagens(){
     for (int i = 0; i < tamanhoTabul; i++) {
         for (int j = 0; j < tamanhoTabul; j++) {
             imagens[i][j] = new ImageView();
-            imagens[i][j].setFitHeight(50);
-            imagens[i][j].setFitWidth(50);
+            imagens[i][j].setFitHeight(500/tamanhoTabul);
+            imagens[i][j].setFitWidth(500/tamanhoTabul);
             imagens[i][j].setLayoutX(0);
             imagens[i][j].setLayoutY(0);
-            imagens[i][j].setX(j*50);
-            imagens[i][j].setY(i*50);
+            imagens[i][j].setX(j*500/tamanhoTabul);
+            imagens[i][j].setY(i*500/tamanhoTabul);
             telaJogar.getChildren().add(imagens[i][j]);
         }
     }
@@ -89,12 +89,12 @@ private void inicializarTabulAnimacoes(){
     for (int i = 0; i < tamanhoTabul; i++) {
         for (int j = 0; j < tamanhoTabul; j++) {
             animacoesAtaques[i][j] = new ImageView();
-            animacoesAtaques[i][j].setFitWidth(50);
-            animacoesAtaques[i][j].setFitHeight(50);
+            animacoesAtaques[i][j].setFitWidth(500/tamanhoTabul);
+            animacoesAtaques[i][j].setFitHeight(500/tamanhoTabul);
             animacoesAtaques[i][j].setLayoutX(0);
             animacoesAtaques[i][j].setLayoutY(0);
-            animacoesAtaques[i][j].setX(j*50);
-            animacoesAtaques[i][j].setY(i*50);
+            animacoesAtaques[i][j].setX(j*500/tamanhoTabul);
+            animacoesAtaques[i][j].setY(i*500/tamanhoTabul);
             telaJogar.getChildren().add(animacoesAtaques[i][j]);
         }
     }
@@ -432,12 +432,12 @@ private void inicializarTabuleiro(){
     int cont = 0;
     for (int i = 0; i < tamanhoTabul + 1; i++) {
         for (int j = 0; j < tamanhoTabul + 1; j++) {
-           tabuleiro[i][j] = new Rectangle(j*50, i*50, 50, 50);
+           tabuleiro[i][j] = new Rectangle(j*500/tamanhoTabul, i*500/tamanhoTabul, 500/tamanhoTabul, 500/tamanhoTabul);
         
             if((i%2==0 && j%2==0) || (i%2==1 && j%2==1) || i == tamanhoTabul || j == tamanhoTabul){
                 tabuleiro[i][j].setStyle("-fx-fill : white;");
             }else{
-                tabuleiro[i][j].setStyle("-fx-fill : green;");
+                tabuleiro[i][j].setStyle("-fx-fill : darkred;");
                 }
            
                  telaJogar.getChildren().add(tabuleiro[i][j]);   
@@ -448,21 +448,57 @@ private void inicializarTabuleiro(){
     
 }
 private void inicializarLegendaLinha(){
+    double add, addy, addy2;
     for (int i = 0; i < tamanhoTabul; i++) {
         
         legendaLinha[i] = new Label("" + (char)(i + 'A'));
-        legendaLinha[i].setLayoutX(12.5 + i*50);
-        legendaLinha[i].setLayoutY(50*tamanhoTabul + 20);
+        if(tamanhoTabul == 10){
+            add = 12.5;
+        }else if(tamanhoTabul == 20){
+            add = 12.5;
+        }else{
+            add = 3.125;
+        }
+        legendaLinha[i].setLayoutX(add + i*500/tamanhoTabul);
+        if(tamanhoTabul == 10){
+            addy = 50;
+            addy2 = 20;
+        }else if(tamanhoTabul == 20){
+            addy = 25;
+            addy2 = 10;
+        }else{
+            addy = 19;
+            addy2 = 10;
+        }
+        legendaLinha[i].setLayoutY(addy*tamanhoTabul + addy2);
        
         telaJogar.getChildren().add(legendaLinha[i]);
     }
     
 }
 private void inicializarLegendaColuna(){
+    double add = 0, addy = 0, addy2 = 0;
     for (int i = 0; i < tamanhoTabul; i++) {
         legendaColuna[i] = new Label("" + (tamanhoTabul - i));
-        legendaColuna[i].setLayoutY(12.5 + i*50);
-        legendaColuna[i].setLayoutX(50*tamanhoTabul + 20);
+         if(tamanhoTabul == 10){
+           add = 12.5;
+        }else if(tamanhoTabul == 20){
+            add = 12.5;
+        }else{
+           add = 12.5;
+        }
+        legendaColuna[i].setLayoutY(add + i*500/tamanhoTabul);
+        if(tamanhoTabul == 10){
+          addy = 50;
+            addy2 = 20;
+        }else if(tamanhoTabul == 20){
+             addy = 25;
+            addy2 = 10;
+        }else{
+          addy = 19;
+            addy2 = 10;
+        }
+        legendaColuna[i].setLayoutX(addy*tamanhoTabul + addy2);
         telaJogar.getChildren().add(legendaColuna[i]);
     }
 }
@@ -472,7 +508,7 @@ private void resetarTabuleiro(){
              if((i%2==0 && j%2==0) || (i%2==1 && j%2==1)){
                 tabuleiro[i][j].setStyle("-fx-fill : white;");
             }else{
-                tabuleiro[i][j].setStyle("-fx-fill : green;");
+                tabuleiro[i][j].setStyle("-fx-fill : darkred;");
                 }
         }
     }
