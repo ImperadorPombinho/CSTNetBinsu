@@ -57,7 +57,7 @@ public class JogarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-
+        partidaCST.lerDoArquivo(partidaCST, "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\cons.txt", "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\equip.txt", timeVencedor);
         inicializarTabuleiro();
         inicialiarTabulImagens();
         inicializarTabulAnimacoes();
@@ -138,9 +138,13 @@ private void inicializarTabulAnimacoes(){
            time vencedor = partidaCST.testaQuemGanhou();
              if(vencedor == time.ORACULO){
                  nomeVencedor = nomes[0];
+                 timeVencedor = time.ORACULO;
+                 partidaCST.escreverNoArquivo(partidaCST);
                  App.setRoot("vencedor");
              }else if(vencedor == time.TROPA){
                  nomeVencedor = nomes[1];
+                 timeVencedor = time.TROPA;
+                 partidaCST.escreverNoArquivo(partidaCST);
                  App.setRoot("vencedor");
              }
         
@@ -195,9 +199,13 @@ private void inicializarTabulAnimacoes(){
         time vencedor = partidaCST.testaQuemGanhou();
              if(vencedor == time.ORACULO){
                  nomeVencedor = nomes[0];
+                 timeVencedor = time.ORACULO;
+                 partidaCST.escreverNoArquivo(partidaCST);
                  App.setRoot("vencedor");
              }else if(vencedor == time.TROPA){
                  nomeVencedor = nomes[1];
+                 timeVencedor = time.TROPA;
+                 partidaCST.escreverNoArquivo(partidaCST);
                  App.setRoot("vencedor");
              }
              
@@ -259,16 +267,21 @@ private void inicializarTabulAnimacoes(){
              animacaoHabilidade(origem.toPosicao());
              printarPartida.setText(UI.printarPartida(partidaCST, nomes));
              statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
+
+             //animacaoHabilidade.setImage(null);
+            }
              time vencedor = partidaCST.testaQuemGanhou();
              if(vencedor == time.ORACULO){
                  nomeVencedor = nomes[0];
+                 timeVencedor = time.ORACULO;
+                 partidaCST.escreverNoArquivo(partidaCST);
                  App.setRoot("vencedor");
              }else if(vencedor == time.TROPA){
                  nomeVencedor = nomes[1];
+                 timeVencedor = time.TROPA;
+                 partidaCST.escreverNoArquivo(partidaCST);
                  App.setRoot("vencedor");
              }
-             //animacaoHabilidade.setImage(null);
-            }
      }catch(FileNotFoundException e){
           alerta.setHeaderText("FALHA AO LOCALIZAR ARQUIVO");
           alerta.setContentText(e.getMessage());
@@ -287,6 +300,7 @@ private void inicializarTabulAnimacoes(){
           animacaoHabilidade.setImage(null);
       } catch (IOException ex) {
             ex.printStackTrace();
+            animacaoHabilidade.setImage(null);
         }
     
     printarPartida.setText(UI.printarPartida(partidaCST, nomes));
@@ -358,9 +372,13 @@ private void inicializarTabulAnimacoes(){
             time vencedor = partidaCST.testaQuemGanhou();
              if(vencedor == time.ORACULO){
                  nomeVencedor = nomes[0];
+                 timeVencedor = time.ORACULO;
+                 partidaCST.escreverNoArquivo(partidaCST);
                  App.setRoot("vencedor");
              }else if(vencedor == time.TROPA){
                  nomeVencedor = nomes[1];
+                 timeVencedor = time.TROPA;
+                 partidaCST.escreverNoArquivo(partidaCST);
                  App.setRoot("vencedor");
              }
          }catch(InputMismatchException e){
@@ -373,9 +391,13 @@ private void inicializarTabulAnimacoes(){
           alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
           alerta.setContentText(e.getMessage());
           alerta.show();
-          animacaoHabilidade.setImage(null);
+          //animacaoHabilidade.setImage(null);
       } catch (IOException ex) {
             ex.printStackTrace();
+        }catch(NumberFormatException e){
+          alerta.setHeaderText("FALHA EM RELAÇÃO AO JOGO");
+          alerta.setContentText("Numero errado ou digite algum numero na caixa de itens");
+          alerta.show();
         }
     }
 /*void partidaIniciada(){
@@ -481,7 +503,7 @@ private void inicializarImagens(char coluna, int linha){
 private void setupInicial(){
     inicializarImagens('B', 8);
     inicializarImagens('B', 7);
-    inicializarImagens('B', 6);
+   // inicializarImagens('B', 6);
 
        
 }

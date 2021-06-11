@@ -18,8 +18,8 @@ import java.util.List;
  * @author Pedrão Barros
  */
 public class ManipuladorDeArquivo {
-    public static List<itemConsumivel> leitorConsumivel(String nome, List<itemConsumivel> qualquer, partidaCST partidaCST) throws IOException {
-        BufferedReader buffRead = new BufferedReader(new FileReader(nome));
+    public static List<itemConsumivel> leitorConsumivel(String path, List<itemConsumivel> qualquer, partidaCST partidaCST) throws IOException {
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = buffRead.readLine();;
         int ID = 0;
         qualquer.clear();

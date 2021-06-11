@@ -3,6 +3,7 @@ package grupoxande.cst;
 
 
 
+import CSTgame.time;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,6 +31,7 @@ public class App extends Application{
     public static Label[] legendaLinha;
     public static Label[] legendaColuna;
     public static String nomeVencedor;
+    public static time timeVencedor = null;
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("telaInicial"), 640, 480);

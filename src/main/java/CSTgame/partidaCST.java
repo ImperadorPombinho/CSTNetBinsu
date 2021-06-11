@@ -359,11 +359,11 @@ public class partidaCST implements Serializable{
         try {
             time timinho = testaQuemGanhou();   
             if(timinho == time.ORACULO){
-                ManipuladorDeArquivo.escritorConsumivel(itensConsumivelsO, "cons.txt", partidaCST);
-                ManipuladorDeArquivo.escritorEquipavel(itensEquipavelsO, "equip.txt", partidaCST);
+                ManipuladorDeArquivo.escritorConsumivel(itensConsumivelsO, "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\cons.txt", partidaCST);
+                ManipuladorDeArquivo.escritorEquipavel(itensEquipavelsO, "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\equip.txt", partidaCST);
             }else{
-                ManipuladorDeArquivo.escritorConsumivel(itensConsumivelsT, "cons.txt", partidaCST);
-                ManipuladorDeArquivo.escritorEquipavel(itensEquipavelsT, "equip.txt", partidaCST);
+                ManipuladorDeArquivo.escritorConsumivel(itensConsumivelsT, "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\cons.txt", partidaCST);
+                ManipuladorDeArquivo.escritorEquipavel(itensEquipavelsT, "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\equip.txt", partidaCST);
             }
             
         } catch (IOException e) {
@@ -372,15 +372,17 @@ public class partidaCST implements Serializable{
         }
 
     }
-    public void lerDoArquivo(partidaCST partidaCST, String nome, String nom1){
+    public void lerDoArquivo(partidaCST partidaCST, String nome, String nom1, time timeVencedor){
         try {
-            time timinho = testaQuemGanhou();
+            time timinho = timeVencedor;
             if(timinho == time.ORACULO){
              setItensConsumivelsO(ManipuladorDeArquivo.leitorConsumivel(nome, itensConsumivelsO, partidaCST));  
                setItensEquipavelsO(ManipuladorDeArquivo.leitorEquipavel(nom1, itensEquipavelsO, partidaCST)); 
-            }else{
+            }else if(timinho == time.TROPA){
                 setItensConsumivelsT(ManipuladorDeArquivo.leitorConsumivel(nome, itensConsumivelsT, partidaCST)); 
             setItensEquipavelsT(ManipuladorDeArquivo.leitorEquipavel(nom1, itensEquipavelsT, partidaCST)); 
+            }else{
+                System.out.println("nada aq");
             }
             for (itemConsumivel itemConsumivel : itensConsumivelsO) {
                 System.out.println("aeeeee porraa");
@@ -426,7 +428,7 @@ public class partidaCST implements Serializable{
             }
     }
     public void resetarPartida(int linha, int coluna, int ID){
-        this.lerDoArquivo(this, "cons.txt", "equip.txt");
+        //this.lerDoArquivo(this, "cons.txt", "equip.txt");
         pecasOraculo.clear();
         pecasOraculo = new ArrayList<>();
         pecasTropa.clear();
