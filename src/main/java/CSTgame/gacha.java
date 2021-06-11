@@ -6,6 +6,7 @@
 package CSTgame;
 
 import CSTgame.interfacesItems.gachaRollIF;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -65,35 +66,41 @@ public class gacha extends itemEquipavel implements gachaRollIF {
     
     public void atributos(CSTpeca generico, int id){
         desequiparGacha(generico.getInventario(), generico);
-        System.out.println("Rodando o gacha...");
-        System.out.println(generico.getNome() +" recebeu: ");
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("Rodando o gacha...");
+        info.setHeaderText(generico.getNome() +" recebeu: ");
+       
         switch(id){
             case 1:
                 this.setNomeItem("Foice");
                 generico.setInventario(this);
                 efeitoFoice(generico);
-                System.out.println("Racofoice!! Preparado para roubar almas!!");
+                info.setContentText("Racofoice!! Preparado para roubar almas!!");
+                
                 break;
             case 2:
                 this.setNomeItem("AK Trovoada");
                 generico.setInventario(this);
                 efeitoAk(generico);
-                System.out.println("AK 47 trovoada!! Ataque a distancia!");
+                 info.setContentText("AK 47 trovoada!! Ataque a distancia!");
+               
                 break;
             case 3:
                 this.setNomeItem("Martelo");
                 generico.setInventario(this);  
                 efeitoMartelo(generico);
-                System.out.println("MARTELOBALDO!");
+                 info.setContentText("MARTELOBALDO!");
+               
                 break;
             case 4:
                 this.setNomeItem("Bodychain da Gucci");
                 generico.setInventario(this); 
                 efeitoRoupaGrife(generico);
-                System.out.println("Bodychain da Gucci! ta podendo filho!");
+                info.setContentText("Bodychain da Gucci! ta podendo filho!");
                 break;
             default:
                 break;                    
         }
+        info.showAndWait();
     }
 }

@@ -243,13 +243,13 @@ private void inicializarTabulAnimacoes(){
             pegarposicao.showAndWait();
             posicao = pegarposicao.getResult();
             CSTposicao origem = UI.traduzirPosicao(10, posicao);
-             //animacaoHabilidade(origem.toPosicao());
+             animacaoHabilidade(origem.toPosicao());
              
             //printarTabuleiroPossiveisMovimento(mover);
             if(partidaCST.getJogador().getPecaAtual() instanceof racoba){
                 partidaCST.perfomaceHabilidade(origem, origem);
-                
-                //animacaoHabilidade.setImage(null);
+              
+                animacaoHabilidade.setImage(null);
                 printarPartida.setText(UI.printarPartida(partidaCST, nomes));
                 statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
             }else{
@@ -264,12 +264,13 @@ private void inicializarTabulAnimacoes(){
             CSTposicao destino = UI.traduzirPosicao(10, posicaoFinal);
             partidaCST.perfomaceHabilidade(origem, destino);
              
-             animacaoHabilidade(origem.toPosicao());
+             //animacaoHabilidade(origem.toPosicao());
              printarPartida.setText(UI.printarPartida(partidaCST, nomes));
              statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
-
-             //animacaoHabilidade.setImage(null);
+            animacaoHabilidade.setImage(null);
+             
             }
+            
              time vencedor = partidaCST.testaQuemGanhou();
              if(vencedor == time.ORACULO){
                  nomeVencedor = nomes[0];
@@ -282,6 +283,7 @@ private void inicializarTabulAnimacoes(){
                  partidaCST.escreverNoArquivo(partidaCST);
                  App.setRoot("vencedor");
              }
+              
      }catch(FileNotFoundException e){
           alerta.setHeaderText("FALHA AO LOCALIZAR ARQUIVO");
           alerta.setContentText(e.getMessage());
@@ -503,7 +505,7 @@ private void inicializarImagens(char coluna, int linha){
 private void setupInicial(){
     inicializarImagens('B', 8);
     inicializarImagens('B', 7);
-   // inicializarImagens('B', 6);
+    //inicializarImagens('B', 6);
 
        
 }
