@@ -295,7 +295,7 @@ public class UI {
               if((i%2==0 && j%2==0) || (i%2==1 && j%2==1)){
                 tabuleiro[i][j].setStyle("-fx-fill : white;");
             }else{
-                tabuleiro[i][j].setStyle("-fx-fill : green;");
+                tabuleiro[i][j].setStyle("-fx-fill : darkred;");
                 }
            }
         }

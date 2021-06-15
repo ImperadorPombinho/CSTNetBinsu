@@ -5,14 +5,18 @@
  */
 package grupoxande.cst;
 
+import CSTgame.ManipuladorDeArquivo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -35,7 +39,21 @@ public class TelaInicialController implements Initializable {
 
     @FXML
     void sairDoJogo() {
-        //nada por enquanto
+          Alert info = new Alert(Alert.AlertType.INFORMATION);
+          info.setTitle("Mensagem de saida");
+          String info2 = null;
+          try {
+
+              info2 = ManipuladorDeArquivo.lerArquivo("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\creditos.txt");
+
+          } catch (IOException ex) {
+              ex.printStackTrace();
+          }
+          info.setHeaderText("Obrigado por jogar");
+          info.setContentText(info2);
+          info.showAndWait();
+          Stage stage = (Stage) botaoSair.getScene().getWindow();
+           stage.close();
     }
 
     @FXML

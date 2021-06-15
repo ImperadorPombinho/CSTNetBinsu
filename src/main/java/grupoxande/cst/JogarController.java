@@ -14,6 +14,7 @@ import CSTgame.personagensCST.leao;
 import CSTgame.personagensCST.miguez;
 import CSTgame.personagensCST.racoba;
 import CSTgame.personagensCST.juao;
+import CSTgame.personagensCST.obstaculo;
 import CSTgame.time;
 import static grupoxande.cst.App.*;
 import java.io.FileInputStream;
@@ -530,6 +531,8 @@ private void inicializarImagens(char coluna, int linha){
                visual = ((juao) visualPeca).getVisual();
            }else if(visualPeca instanceof henridog){
                visual = ((henridog) visualPeca).getVisual();
+           }else if(visualPeca instanceof obstaculo){
+               visual = ((obstaculo) visualPeca).getVisual();
            }
           
      }catch(FileNotFoundException e){
@@ -541,7 +544,7 @@ private void inicializarImagens(char coluna, int linha){
 private void setupInicial(){
     inicializarImagens('B', 8);
     inicializarImagens('B', 7);
-    //inicializarImagens('B', 6);
+    inicializarImagens('B', 6);
 
        
 }

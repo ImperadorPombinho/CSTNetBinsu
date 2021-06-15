@@ -211,7 +211,10 @@ public class partidaCST implements Serializable{
         CSTpeca miguezz = (CSTpeca) tabuleiro.peca(origem);
         if(miguezz instanceof miguez){
             String msg = ((miguez)miguezz).dormiuVez();
-            System.out.println(msg);
+            if(msg != null){
+                throw new exececaoCST(msg);
+            }
+             
         }
         posicao destino = posicaoDestino.toPosicao();
         validacaoOrigem(origem);
@@ -237,7 +240,6 @@ public class partidaCST implements Serializable{
         }else if(pecavisual instanceof henridog){
             visual = ((henridog) pecavisual).getVisual();
         }
-        //lembrar de colocar os visuais dos outros personagens
         return visual;
     }
     public void perfomaceAtaque(CSTposicao posicaoAtacante, CSTposicao posicaoAtacado){
@@ -831,8 +833,8 @@ public class partidaCST implements Serializable{
             colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'D');
 
         }else if(getIDmapa() == 2){
-            //colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
-            //colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'G');
+            colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
+           // colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'G');
             //colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"henrigO", this), 6, 'B');
             colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 234,5,"leaoT"), 8, 'B');
             colocarNovaPeca(new miguez(tabuleiro, time.ORACULO, 20, 0, 120,5,this,"leaoT"), 7, 'B');

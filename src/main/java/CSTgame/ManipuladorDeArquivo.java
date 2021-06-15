@@ -60,15 +60,16 @@ public class ManipuladorDeArquivo {
         buffRead.close();
         return qualquer;
     }
-    public static void lerArquivo(String nome) throws IOException{
+    public static String lerArquivo(String nome) throws IOException{
         BufferedReader buffRead = new BufferedReader(new FileReader(nome));
         String linha = buffRead.readLine();
-
+        StringBuilder string = new StringBuilder();
         while(linha != null){
-            System.out.println(linha);
+            string.append(linha + "\n");
             linha = buffRead.readLine();
         }
         buffRead.close();
+        return string.toString();
     }
     public static void escritorConsumivel(List<itemConsumivel> qualquer, String nome, partidaCST partidaCST) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(nome, false));

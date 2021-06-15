@@ -5,12 +5,14 @@
  */
 package grupoxande.cst;
 
+import CSTgame.ManipuladorDeArquivo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -52,6 +54,19 @@ public class VencedorController implements Initializable {
 
     @FXML
     void fecharJogo(ActionEvent event) {
+          Alert info = new Alert(Alert.AlertType.INFORMATION);
+          info.setTitle("Mensagem de saida");
+          String info2 = null;
+          try {
+
+              info2 = ManipuladorDeArquivo.lerArquivo("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\creditos.txt");
+
+          } catch (IOException ex) {
+              ex.printStackTrace();
+          }
+          info.setHeaderText("Obrigado por jogar");
+          info.setContentText(info2);
+          info.showAndWait();
         Stage stage = (Stage) botaoNao.getScene().getWindow();
         stage.close();
     }

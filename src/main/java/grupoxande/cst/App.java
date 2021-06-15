@@ -4,6 +4,7 @@ package grupoxande.cst;
 
 
 import CSTgame.time;
+import java.io.FileInputStream;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
@@ -35,6 +37,7 @@ public class App extends Application{
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("telaInicial"), 640, 480);
+        stage.getIcons().add(new Image(new FileInputStream("C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\resources\\grupoxande\\cst\\imagem\\icone.png")));
         stage.setScene(scene);
         stage.show();
     }
