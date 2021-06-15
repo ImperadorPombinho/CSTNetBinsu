@@ -387,7 +387,7 @@ public class partidaCST implements Serializable{
                 System.out.println("nada aq");
             }
             for (itemConsumivel itemConsumivel : itensConsumivelsO) {
-                System.out.println("aeeeee porraa");
+                //System.out.println("aeeeee porraa");
                 System.out.println(itemConsumivel.getNome());
             }
         } catch (IOException e) {
@@ -848,17 +848,17 @@ public class partidaCST implements Serializable{
         colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"henridogO", this), 7, 'B');
         colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 7, 'C');*/
         //RACOBA
-       colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
+      /* colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
         colocarNovaPeca(new racoba(tabuleiro, time.ORACULO, 20, 0, 300,5,"racobaO", this), 7, 'B');
-        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 6, 'B');
+        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 6, 'B');*/
         //OBSTACULO
         /*colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 3, 'C');
         colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
         colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoO"), 7, 'B');*/
         //TESTAR ITEM COM VENCEDOR
-        /*colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'B');
+        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'B');
         colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 300, 0, 120,5,"leaoO"), 7, 'B');
-        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 6, 'C');*/
+        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 6, 'C');
         }else{
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'A');
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'Z');
