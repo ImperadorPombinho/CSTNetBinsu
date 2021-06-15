@@ -9,6 +9,7 @@ import CSTgame.CSTpeca;
 import CSTgame.gacha;
 import CSTgame.partidaCST;
 import CSTgame.time;
+import grupoxande.cst.App;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
@@ -150,6 +151,9 @@ public class racoba extends CSTpeca {
 
     @Override
     public void habilidade(CSTpeca generico) {
+        boolean racs = false;
+        StringBuilder racobinhos = new StringBuilder();
+       
         if(getInventario().getNomeItem().equals("Foice")){
             System.out.println(getPosicao().getLinha());
             System.out.println(getPosicao().getLinha()+1);
@@ -164,25 +168,39 @@ public class racoba extends CSTpeca {
                         if(haUmaPecaDoOponente(posTeste)){
                             pecax = (CSTpeca) getTabul().peca(posTeste);
                             if(!(pecax instanceof obstaculo)){
-                                System.out.println("~~~~~Ceifador de almas~~~~~");
-                                System.out.println("Oponente em alcance: " +pecax.getNome()
-                                +"\nVida oponente: "+pecax.getVida());
+                                racobinhos.append("~~~~~Ceifador de almas~~~~~" + "\n");
+                                //System.out.println("~~~~~Ceifador de almas~~~~~");
+                                racobinhos.append("Oponente em alcance: " +pecax.getNome()
+                                +"\nVida oponente: "+pecax.getVida() + "\n");
+                                //System.out.println("Oponente em alcance: " +pecax.getNome()
+                               // +"\nVida oponente: "+pecax.getVida());
                                 setVida(getVida() + (pecax.getVida()/10));
                                 pecax.setVida(pecax.getVida() - (pecax.getVida()/10));
                                 if(pecax.getVida() <= 0){
                                     pecax.setVida(1);
                                 }
-                                System.out.println("absorveu: " +pecax.getNome());
-                                System.out.println("vida atual do alvo: " +pecax.getVida());
+                                racobinhos.append("absorveu: " +pecax.getNome() + "\n");
+                                //System.out.println("absorveu: " +pecax.getNome());
+                                racobinhos.append("vida atual do alvo: " +pecax.getVida() + "\n");
+                                //System.out.println("vida atual do alvo: " +pecax.getVida());
                             }
 
                         }
                     }
                 }
             }
-            System.out.println(getNome() +" absorveu vida dos inimigos ao redor e agora seu HP esta em: " +getVida());
-            System.out.println("A racofoice atual foi quebrada devido ao poder!");
+            racobinhos.append(getNome() +" absorveu vida dos inimigos ao redor e agora seu HP esta em: " +getVida() + "\n");
+           // System.out.println(getNome() +" absorveu vida dos inimigos ao redor e agora seu HP esta em: " +getVida());
+           racobinhos.append("A racofoice atual foi quebrada devido ao poder!" + "\n");
+           racs = true;
+            //System.out.println("A racofoice atual foi quebrada devido ao poder!");
         }
+        if(racs == false ){
+            App.racofoice = null;
+        }else{
+            App.racofoice = racobinhos.toString();
+        }
+        
         ((gacha)getInventario()).atributos(this, aleatorio.nextInt(4)+1);
     }
     

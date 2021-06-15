@@ -57,8 +57,12 @@ public class JogarController implements Initializable {
     private ImageView animacaoHabilidade;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        Alert infosorteio = new Alert(Alert.AlertType.INFORMATION);
+        infosorteio.setTitle("Sorteio de ataque de peças");
+        infosorteio.setContentText(UI.printarSorteioAtqPecas(partidaCST));
+        infosorteio.showAndWait();
         partidaCST.lerDoArquivo(partidaCST, "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\cons.txt", "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\equip.txt", timeVencedor);
+        partidaCST.lerDoArquivo(partidaCST, "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\cons.txt", "C:\\Users\\Pedrão Barros\\Documents\\NetBeansProjects\\CST\\src\\main\\java\\grupoxande\\cst\\cons.txt", timeVencedor);
         inicializarTabuleiro();
         inicialiarTabulImagens();
         inicializarTabulAnimacoes();
@@ -249,7 +253,13 @@ private void inicializarTabulAnimacoes(){
             //printarTabuleiroPossiveisMovimento(mover);
             if(partidaCST.getJogador().getPecaAtual() instanceof racoba){
                 partidaCST.perfomaceHabilidade(origem, origem);
-              
+              if(racofoice != null){
+                  Alert infoRacoba = new Alert(Alert.AlertType.INFORMATION);
+                  infoRacoba.setTitle("informação de racoba");
+                  infoRacoba.setContentText(racofoice);
+                  infoRacoba.showAndWait();
+                  
+              }
                 animacaoHabilidade.setImage(null);
                 printarPartida.setText(UI.printarPartida(partidaCST, nomes));
                 statuslabel.setText(UI.printarStatus(partidaCST.getJogador().getPecaAtual(), tamanhoTabul));
@@ -545,7 +555,9 @@ private void setupInicial(){
     inicializarImagens('B', 8);
     inicializarImagens('B', 7);
     inicializarImagens('B', 6);
-
+    inicializarImagens('C', 3);
+    inicializarImagens('C', 7);
+    inicializarImagens('C', 6);
        
 }
 private void animacaoAtaque(posicao atacado){

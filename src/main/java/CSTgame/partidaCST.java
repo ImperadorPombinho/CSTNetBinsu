@@ -833,16 +833,32 @@ public class partidaCST implements Serializable{
             colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'D');
 
         }else if(getIDmapa() == 2){
-            colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
-           // colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'G');
-            //colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"henrigO", this), 6, 'B');
-            colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 234,5,"leaoT"), 8, 'B');
-            colocarNovaPeca(new miguez(tabuleiro, time.ORACULO, 20, 0, 120,5,this,"leaoT"), 7, 'B');
-            //colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoO"), 6, 'B');
-           // colocarNovaPeca(new racoba(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT",this), 6, 'B');
-            //colocarNovaPeca(new racoba(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT",this), 5, 'B');
-            //colocarNovaPeca(new miguez(tabuleiro, time.ORACULO, 20, 0, 120,5,this,"leaoT"), 4, 'B');
-            //colocarNovaPeca(new miguez(tabuleiro, time.TROPA, 20, 0, 120,5,this,"leaoT"), 3, 'B');
+        //LEAO
+        /*colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'B');
+        colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoO"), 7, 'B');
+        colocarNovaPeca(new miguez(tabuleiro, time.ORACULO, 20, 0, 1,5,this,"miguezO"), 7, 'C');*/
+        //JUAO
+       /* colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
+        colocarNovaPeca(new juao(tabuleiro, time.ORACULO, 20, 0, 120,5,"juaoO"), 7, 'B');*/
+        //MIGUEZ
+        /*colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
+        colocarNovaPeca(new miguez(tabuleiro, time.ORACULO, 20, 0, 120,5,this,"miguezO"), 7, 'B');*/
+        //HENRIDOG
+       /* colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
+        colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"henridogO", this), 7, 'B');
+        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 7, 'C');*/
+        //RACOBA
+       colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
+        colocarNovaPeca(new racoba(tabuleiro, time.ORACULO, 20, 0, 300,5,"racobaO", this), 7, 'B');
+        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 6, 'B');
+        //OBSTACULO
+        /*colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 3, 'C');
+        colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
+        colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoO"), 7, 'B');*/
+        //TESTAR ITEM COM VENCEDOR
+        /*colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'B');
+        colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 300, 0, 120,5,"leaoO"), 7, 'B');
+        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 6, 'C');*/
         }else{
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'A');
             colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 10, 'Z');
@@ -853,32 +869,7 @@ public class partidaCST implements Serializable{
             colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoT"), 8, 'B');
             colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'D');
         }
-        //LEAO
-        /*colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'B');
-        colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoO"), 7, 'B');
-        colocarNovaPeca(new miguez(tabuleiro, time.ORACULO, 20, 0, 1,5,this,"miguezO"), 7, 'C');
-        //JUAO
-        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
-        colocarNovaPeca(new juao(tabuleiro, time.ORACULO, 20, 0, 120,5,"juaoO"), 7, 'B');
-        //MIGUEZ
-        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
-        colocarNovaPeca(new miguez(tabuleiro, time.ORACULO, 20, 0, 120,5,this,"miguezO"), 7, 'B');
-        //HENRIDOG
-        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
-        colocarNovaPeca(new henridog(tabuleiro, time.ORACULO, 20, 0, 120,5,"henridogO", this), 7, 'B');
-        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 7, 'C');
-        //RACOBA
-        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 8, 'B');
-        colocarNovaPeca(new racoba(tabuleiro, time.ORACULO, 20, 0, 300,5,"racobaO", this), 7, 'B');
-        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 300,5,"leaoT"), 6, 'B');*/
-        //OBSTACULO
-        /*colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 16, 'D');
-        colocarNovaPeca(new obstaculo(tabuleiro, time.OBSTACULO, 0, 0, 10,5,"obsT"), 6, 'B');
-        colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 20, 0, 120,5,"leaoO"), 7, 'B');*/
-        //TESTAR ITEM COM VENCEDOR
-        /*colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 8, 'B');
-        colocarNovaPeca(new leao(tabuleiro, time.ORACULO, 300, 0, 120,5,"leaoO"), 7, 'B');
-        colocarNovaPeca(new leao(tabuleiro, time.TROPA, 20, 0, 120,5,"leaoT"), 6, 'C');*/
+
         
         
     }

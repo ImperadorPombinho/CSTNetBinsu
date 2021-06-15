@@ -34,6 +34,7 @@ public class App extends Application{
     public static Label[] legendaColuna;
     public static String nomeVencedor;
     public static time timeVencedor = null;
+    public static String racofoice;
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("telaInicial"), 640, 480);

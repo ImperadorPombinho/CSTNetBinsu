@@ -58,17 +58,17 @@ public class gacha extends itemEquipavel implements gachaRollIF {
                 generico.setAtaque(generico.getAtaque()+10);
                 generico.setDefesa(generico.getDefesa()-25);
             }
-            if(nome.equals("Lucky Wheel")){
-                System.out.println("Ativando roleta do gacha! Boa sorte!");
-            }
+           // if(nome.equals("Lucky Wheel")){
+                //System.out.println("Ativando roleta do gacha! Boa sorte!");
+           // }
             generico.setRangeMovimento(3);
     }
     
     public void atributos(CSTpeca generico, int id){
         desequiparGacha(generico.getInventario(), generico);
         Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle("Rodando o gacha...");
-        info.setHeaderText(generico.getNome() +" recebeu: ");
+        info.setTitle( "Ativando roleta do gacha! Boa sorte!");
+        info.setHeaderText("Rodando o gacha... " +generico.getNome() +" recebeu: ");
        
         switch(id){
             case 1:

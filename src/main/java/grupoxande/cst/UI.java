@@ -97,10 +97,6 @@ public class UI {
         Alert mostrar = new Alert(Alert.AlertType.INFORMATION);
         StringBuilder mostrarItem = new StringBuilder();
         mostrar.setTitle("ITEMS");
-        mostrar.setHeaderText("Lista de Items Consumiveis");
-         qualquer.add(new itemConsumivel("Pizza", 5, partidaCST, 2));
-        qualquer.add(new itemConsumivel("FPYke", 5, partidaCST, 1));
-         qualquer.add(new itemConsumivel("pototonime", 5, partidaCST, 3));
         int cont = 1;
         if(qualquer.size() > 0){
             for (itemConsumivel itemConsumivel : qualquer) {
@@ -119,8 +115,6 @@ public class UI {
         StringBuilder mostrarItem = new StringBuilder();
         mostrar.setTitle("ITEMS");
         mostrar.setHeaderText("Lista de Items Equipaveis");
-       qualquer.add(new itemEquipavel("Camisa da Playstation", partidaCST, 1));
-       qualquer.add(new itemEquipavel("Taco de Sinuca", partidaCST, 2));
         int cont = 1;
         if(qualquer.size() > 0){
             for (itemEquipavel itemEquipavel : qualquer) {
@@ -199,21 +193,27 @@ public class UI {
         
     }
 
-    public static void printarSorteioAtqPecas(partidaCST partidaCST){
+    public static String printarSorteioAtqPecas(partidaCST partidaCST){
         List<CSTpeca> auxOraculo = partidaCST.getPecasOraculo();
         List<CSTpeca> auxTropa = partidaCST.getPecasTropa();
-        System.out.println();
-        System.out.println("ordem de atq da tropa: ");
+        //System.out.println();
+        StringBuilder string = new StringBuilder();
+        //System.out.println("ordem de atq da tropa: ");
+        string.append("ordem de atq da tropa: " + "\n");
         for (CSTpeca csTpeca : auxTropa) {
-            System.out.print("-> " +csTpeca.getNome());
+            //System.out.print("-> " +csTpeca.getNome());
+            string.append("-> " +csTpeca.getNome());
 
         }
-        System.out.println();
-        System.out.println("ordem de atq da Oraculo: ");
+        string.append("\n");
+        //System.out.println();
+         string.append("ordem de atq da Oraculo: " + "\n");
+        //System.out.println("ordem de atq da Oraculo: ");
         for (CSTpeca csTpeca : auxOraculo) {
-            System.out.print("-> " +csTpeca.getNome());
+            string.append("-> " +csTpeca.getNome());
 
         }
+        return string.toString();
     }
 
     public static void printarTabuleiro(CSTpeca[][] pecas, int numeroLinhas){
